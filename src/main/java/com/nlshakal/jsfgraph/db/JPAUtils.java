@@ -1,13 +1,10 @@
-package com.worthant.jsfgraph.db;
+package com.nlshakal.jsfgraph.db;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.Properties;
 import lombok.Getter;
 
-/**
- * Utility class for handling JPA EntityManagerFactory.
- */
 public class JPAUtils {
     @Getter private static final EntityManagerFactory factory;
 

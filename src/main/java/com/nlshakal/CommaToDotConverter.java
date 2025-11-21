@@ -1,4 +1,4 @@
-package com.worthant;
+package com.nlshakal;
 
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
@@ -6,7 +6,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.ConverterException;
 
-@FacesConverter("com.worthant.CommaToDotConverter")
+@FacesConverter("com.nlshakal.CommaToDotConverter")
 public class CommaToDotConverter implements Converter<Double> {
 
     @Override

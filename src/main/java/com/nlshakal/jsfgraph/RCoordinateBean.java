@@ -1,4 +1,4 @@
-package com.worthant.jsfgraph;
+package com.nlshakal.jsfgraph;
 
 
 import jakarta.annotation.PostConstruct;
@@ -11,16 +11,12 @@ import lombok.NoArgsConstructor;
 
 
 import java.io.Serializable;
-import java.util.Objects;
 
-/**
- * Managed bean for dealing with the R value in a JSF application.
- * This bean includes methods for getting and setting the R value, validating it, and initializing it with a default value if necessary.
- */
 @Data
 @NoArgsConstructor
 public class RCoordinateBean implements Serializable {
     private Double r = 0.0;
+
 
     public void validateRBeanValue(FacesContext facesContext, UIComponent uiComponent, Object o){
         if (o == null){
@@ -32,7 +28,7 @@ public class RCoordinateBean implements Serializable {
     @PostConstruct
     public void init() {
         if (r == null || r == 0.0) {
-            r = 3.0; // Default value
+            r = 3.0;
         }
     }
 }

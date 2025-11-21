@@ -14,7 +14,6 @@
 }
 
 @layer components {
-    /* Киберпанк градиентный фон */
     .bg-custom-light {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         position: relative;
@@ -47,7 +46,6 @@
         border-color: rgba(124, 58, 237, 0.5);
     }
 
-    /* Неоновые слайдеры */
     .dark .ui-slider {
         background: rgba(30, 30, 46, 0.8);
         border: 1px solid rgba(124, 58, 237, 0.5);
@@ -72,7 +70,6 @@
         box-shadow: 0 0 30px rgba(124, 58, 237, 1);
     }
 
-    /* Таблица с неоновым эффектом */
     .table-cell {
         @apply px-2 sm:px-10 py-2 text-center justify-center items-center;
         border: 1px solid rgba(124, 58, 237, 0.3);
@@ -99,7 +96,6 @@
         animation: shake 0.5s ease-in-out;
     }
 
-    /* Крутые градиентные кнопки с анимацией */
     .btn {
         @apply h-10 w-10 p-2 rounded-lg text-white;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -143,7 +139,6 @@
         box-shadow: 0 0 30px rgba(245, 87, 108, 0.8);
     }
 
-    /* Светящийся график */
     .graph {
         @apply min-w-0 w-full sm:w-auto h-auto;
         border-radius: 20px;
@@ -159,7 +154,6 @@
         transform: scale(1.02);
     }
 
-    /* Glassmorphism форма */
     .input-form {
         @apply flex flex-col justify-center gap-4 overflow-auto;
         @apply p-10 lg:p-32 md:p-24 sm:p-16;
@@ -171,7 +165,6 @@
         animation: fadeInUp 0.6s ease-out;
     }
 
-    /* Стильные поля ввода */
     .input-text {
         @apply mt-1 p-3 w-full rounded-lg;
         background: rgba(30, 30, 46, 0.8);
@@ -192,7 +185,6 @@
         border-color: rgba(124, 58, 237, 0.6);
     }
 
-    /* Эпичная кнопка Submit */
     .submit-btn {
         @apply w-full p-3 rounded-lg text-white font-bold;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -245,7 +237,6 @@
         @apply hover:scale-110 transition-transform duration-300;
     }
 
-    /* Неоновая кнопка Home */
     .btn-home {
         display: inline-block;
         padding: 15px 40px;
@@ -301,7 +292,6 @@
         @apply p-3;
     }
 
-    /* Секция с графиком - анимированный градиент */
     .graph-section {
         position: relative;
         min-height: 600px;
@@ -327,7 +317,6 @@
         pointer-events: none;
     }
 
-    /* Секция с таблицей - волновой градиент */
     .table-section {
         position: relative;
         min-height: 500px;
@@ -356,7 +345,6 @@
         pointer-events: none;
     }
 
-    /* Секция Home - пульсирующий градиент */
     .home-section {
         position: relative;
         min-height: 500px;
@@ -383,7 +371,6 @@
     }
 }
 
-/* Анимации */
 @keyframes gridMove {
     0% { transform: translate(0, 0); }
     100% { transform: translate(50px, 50px); }
@@ -437,7 +424,6 @@
     }
 }
 
-/* Медиа-запросы */
 @media (min-width: 640px) {
     .custom-grid-sm {
         grid-template-columns: 1fr 2fr 1fr;
@@ -473,12 +459,10 @@ html {
     @apply scroll-smooth;
 }
 
-/* Дополнительные неоновые эффекты */
 .home-button-container {
     animation: fadeInUp 1s ease-out;
 }
 
-/* Кастомный скроллбар */
 ::-webkit-scrollbar {
     width: 12px;
 }
@@ -517,7 +501,7 @@ html {
 
 @media (max-width: 640px) {
     .parallax-section {
-        background-attachment: scroll; /* Disable fixed background for better performance on mobile */
+        background-attachment: scroll;
     }
 }
 

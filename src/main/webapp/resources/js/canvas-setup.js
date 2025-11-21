@@ -8,7 +8,7 @@ export function setupCanvas(R) {
     ctx = canvas.getContext("2d");
     setWidth(canvas.width);
     setHeight(canvas.height);
-    k = 1.7; // edit this constant if you want other scale for graph
+    k = 1.7;
     baseScaling = width / 6;
     setDynamicScalingFactor(R);
 }

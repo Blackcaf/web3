@@ -1,8 +1,5 @@
-package com.worthant.jsfgraph.db;
+package com.nlshakal.jsfgraph.db;
 
-/**
- * Factory class for data access object (DAO) instances.
- */
 public class DAOFactory {
     private static ResultDAO resultDAO;
 

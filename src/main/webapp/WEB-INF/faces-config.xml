@@ -6,25 +6,25 @@
 
     <managed-bean>
         <managed-bean-name>xCoordinateBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.XCoordinateBean</managed-bean-class>
+        <managed-bean-class>com.nlshakal.jsfgraph.XCoordinateBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>yCoordinateBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.YCoordinateBean</managed-bean-class>
+        <managed-bean-class>com.nlshakal.jsfgraph.YCoordinateBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>rCoordinateBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.RCoordinateBean</managed-bean-class>
+        <managed-bean-class>com.nlshakal.jsfgraph.RCoordinateBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>resultsControllerBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.ResultsControllerBean</managed-bean-class>
+        <managed-bean-class>com.nlshakal.jsfgraph.ResultsControllerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>XCoordinateBean</property-name>
@@ -42,7 +42,7 @@
 
     <managed-bean>
         <managed-bean-name>coordinateHandlerBean</managed-bean-name>
-        <managed-bean-class>com.worthant.jsfgraph.CoordinateHandlerBean</managed-bean-class>
+        <managed-bean-class>com.nlshakal.jsfgraph.CoordinateHandlerBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 

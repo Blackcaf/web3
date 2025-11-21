@@ -1,19 +1,19 @@
-package com.worthant.jsfgraph.mbeans;
+package com.nlshakal.jsfgraph.mbeans;
 
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Collection;
 
-import com.worthant.jsfgraph.db.ResultDAO;
-import com.worthant.jsfgraph.entity.ResultEntity;
+import com.nlshakal.jsfgraph.db.ResultDAO;
+import com.nlshakal.jsfgraph.entity.ResultEntity;
 
 public class PointsCounter extends NotificationBroadcasterSupport implements PointsCounterMBean {
-    private AtomicInteger totalPoints = new AtomicInteger(0);
-    private AtomicInteger missedPoints = new AtomicInteger(0);
+    private final AtomicInteger totalPoints = new AtomicInteger(0);
+    private final AtomicInteger missedPoints = new AtomicInteger(0);
     private int consecutiveMisses = 0;
     private long sequenceNumber = 1;
-    private ResultDAO resultDAO;
+    private final ResultDAO resultDAO;
 
     public PointsCounter(ResultDAO resultDAO) {
         this.resultDAO = resultDAO;

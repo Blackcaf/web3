@@ -1,7 +1,7 @@
-package com.worthant.jsfgraph.mbeans;
+package com.nlshakal.jsfgraph.mbeans;
 
 public class MissPercentage implements MissPercentageMBean {
-    private PointsCounterMBean pointsCounter;
+    private final PointsCounterMBean pointsCounter;
 
     public MissPercentage(PointsCounterMBean pointsCounter) {
         this.pointsCounter = pointsCounter;

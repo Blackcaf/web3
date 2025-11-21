@@ -1,10 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: boris
-  Date: 08.11.2023
-  Time: 18:41
--->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -19,55 +13,239 @@
     <link rel="icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png" />
     <h:outputStylesheet library="styles" name="main.css"/>
     <h:outputStylesheet>
-        .glow:hover {
-            box-shadow: 0 0 5px #9f7aea, 0 0 10px #9f7aea, 0 0 15px #9f7aea, 0 0 20px #9f7aea;
+        @keyframes neon-glow {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 30px #00ffff,
+                    0 0 40px #ff00ff,
+                    0 0 70px #ff00ff,
+                    0 0 80px #ff00ff,
+                    0 0 100px #ff00ff;
+            }
+            50% {
+                text-shadow:
+                    0 0 5px #00ffff,
+                    0 0 10px #00ffff,
+                    0 0 15px #00ffff,
+                    0 0 20px #ff00ff,
+                    0 0 35px #ff00ff,
+                    0 0 40px #ff00ff,
+                    0 0 50px #ff00ff;
+            }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulse-border {
+            0%, 100% {
+                border-color: #00ffff;
+                box-shadow:
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    inset 0 0 10px rgba(0, 255, 255, 0.2);
+            }
+            50% {
+                border-color: #ff00ff;
+                box-shadow:
+                    0 0 15px #ff00ff,
+                    0 0 30px #ff00ff,
+                    inset 0 0 15px rgba(255, 0, 255, 0.2);
+            }
+        }
+
+        @keyframes text-glow {
+            0%, 100% {
+                text-shadow:
+                    0 0 5px #00ffff,
+                    0 0 10px #00ffff,
+                    0 0 15px #00ffff;
+            }
+            50% {
+                text-shadow:
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 30px #ff00ff;
+            }
+        }
+
+        .neon-bg {
+            background: linear-gradient(45deg, #0a0a0a, #1a0a2e, #16003b, #0f0524, #0a0a0a);
+            background-size: 400% 400%;
+            animation: gradient-shift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(255, 0, 128, 0.08) 0%, transparent 50%);
+            animation: gradient-shift 20s ease infinite;
+        }
+
+        .neon-title {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: neon-glow 2s ease-in-out infinite;
+        }
+
+        .neon-subtitle {
+            font-size: 1.5rem;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            margin-top: 1rem;
+        }
+
+        .neon-button {
+            position: relative;
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: rgba(0, 0, 0, 0.5);
+            border: 3px solid #00ffff;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow:
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                inset 0 0 10px rgba(0, 255, 255, 0.2);
+            text-decoration: none;
+        }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .neon-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 255, 0.4), transparent);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .neon-button:hover {
+            color: #fff;
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #ff00ff;
+            box-shadow:
+                0 0 20px #00ffff,
+                0 0 40px #00ffff,
+                0 0 60px #ff00ff,
+                0 0 80px #ff00ff,
+                inset 0 0 20px rgba(255, 0, 255, 0.4);
+            transform: scale(1.1);
+            animation: pulse-border 1.5s ease-in-out infinite;
+        }
+
+        .neon-button:hover::before {
+            left: 100%;
+        }
+
+        .neon-button:hover::after {
+            width: 400px;
+            height: 400px;
+        }
+
+        .neon-button:active {
+            transform: scale(0.95);
+        }
+
+        .info-card {
+            background: rgba(10, 10, 30, 0.7);
+            border: 2px solid #00ffff;
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.5),
+                0 0 50px rgba(255, 0, 255, 0.3),
+                inset 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .info-text {
+            color: #00ffff;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #00ffff;
+            margin: 0.5rem 0;
         }
     </h:outputStylesheet>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" type=""></script>
 </h:head>
 <h:body>
+    <!-- Main container with neon background -->
+    <h:panelGroup layout="block" styleClass="neon-bg font-sans min-h-screen text-white flex flex-col items-center justify-center p-6">
 
-    <!-- Link to main.xhtml -->
-    <h:panelGroup layout="block" styleClass="fixed" style="top: 44.2%; left:52.9%;">
-        <h:link styleClass="bg-transparent hover:bg-purple-600 text-white px-4 h-104 w-16 rounded opacity-0 hover:opacity-80 hover:shadow-lg glow col-start-2 row-start-2 transform rotate-5 flex items-center justify-center"
-                value="~Teleport to main~" outcome="goToMain"/>
-    </h:panelGroup>
-
-    <!-- Main container -->
-    <h:panelGroup layout="block" styleClass="font-sans min-h-screen bg-fixed bg-cover text-white p-3"
-         style="background-image: url('#{request.contextPath}/resources/images/portal.png');">
-
-        <!-- Header -->
-        <h:panelGroup layout="block" styleClass="mt-0.5 custom-grid-sm grid h-14 grid-cols-1 content-center items-center gap-2 rounded-lg border border-white shadow-lg backdrop-blur">
-            <!-- Github icon -->
-            <h:panelGroup layout="block" styleClass="hidden justify-center sm:flex sm:justify-start">
-                <h:link outcome="https://github.com/worthant/interactive-graph-ui" target="_blank"
-                   styleClass="inline-flex items-center">
-                    <h:graphicImage library="images" name="github.png" alt="GitHub" styleClass="mx-2 h-8" />
-                </h:link>
-            </h:panelGroup>
-
-            <!-- Header text -->
-            <h:panelGroup layout="block" styleClass="flex justify-center">
-                <p class="overflow-hidden whitespace-nowrap text-center align-middle text-base font-medium">var 789
-                    |
-                    Dvorkin Boris Alexandrovich | P3231</p>
-            </h:panelGroup>
-
-            <!-- Time in HH, MM, SS format -->
-            <h:panelGroup layout="block" styleClass="hidden sm:flex sm:justify-end mr-2">
-                <h:panelGroup layout="block" id="date-time" styleClass="self-center text-right text-base font-medium">
-                    <h:outputText id="date" value="" escape="false" />,
-                    <h:outputText id="time" value="" escape="false" />
-                </h:panelGroup>
+        <!-- Header with info -->
+        <h:panelGroup layout="block" styleClass="info-card mb-8 max-w-2xl w-full">
+            <h:panelGroup layout="block" styleClass="flex flex-col items-center text-center">
+                <p class="info-text font-bold text-2xl mb-2">Вариант: 8394</p>
+                <p class="info-text text-xl mb-1">Мантуш Даниил Валерьевич</p>
+                <p class="info-text text-xl">Группа: P3219</p>
             </h:panelGroup>
         </h:panelGroup>
 
-        <!-- Date-time container for mobile (below md breakpoint) -->
-        <h:panelGroup layout="block" styleClass="mt-2 flex justify-center rounded-lg border border-white p-2 shadow-lg backdrop-blur sm:hidden">
-            <h:panelGroup layout="block" id="date-time-mobile" styleClass="text-center text-base font-medium">
-                <h:outputText id="date-mobile" value="" escape="false" />,
-                <h:outputText id="time-mobile" value="" escape="false" />
+        <!-- Main title -->
+        <h:panelGroup layout="block" styleClass="text-center mb-12">
+            <h1 class="neon-title mb-4">Web Lab 3</h1>
+        </h:panelGroup>
+
+        <!-- Button to main page -->
+        <h:panelGroup layout="block" styleClass="mb-8">
+            <h:link outcome="goToMain" styleClass="neon-button">
+                Войти
+            </h:link>
+        </h:panelGroup>
+
+        <!-- Time display -->
+        <h:panelGroup layout="block" styleClass="info-card mt-12">
+            <h:panelGroup layout="block" id="date-time" styleClass="text-center">
+                <p class="info-text">
+                    <h:outputText id="date" value="" escape="false" />
+                    <br/>
+                    <h:outputText id="time" value="" escape="false" />
+                </p>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>

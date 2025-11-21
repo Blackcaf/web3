@@ -20,43 +20,273 @@
     <link rel="icon" type="image/png" href="#{request.contextPath}/resources/images/favicon.png"/>
     <h:outputStylesheet library="styles" name="main.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <h:outputStylesheet>
+        @keyframes neon-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 5px #00ffff,
+                    0 0 10px #00ffff,
+                    0 0 15px #00ffff,
+                    inset 0 0 5px rgba(0, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow:
+                    0 0 10px #ff00ff,
+                    0 0 20px #ff00ff,
+                    0 0 30px #ff00ff,
+                    inset 0 0 10px rgba(255, 0, 255, 0.2);
+            }
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow-text {
+            0%, 100% {
+                text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+            }
+            50% {
+                text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+            }
+        }
+
+        .neon-container {
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2e, #16003b, #0f0524);
+            background-size: 400% 400%;
+            animation: gradient-flow 15s ease infinite;
+        }
+
+        .neon-header {
+            background: rgba(10, 10, 30, 0.8);
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .neon-header:hover {
+            border-color: #ff00ff;
+            box-shadow:
+                0 0 25px rgba(0, 255, 255, 0.6),
+                0 0 35px rgba(255, 0, 255, 0.4);
+        }
+
+        .neon-card {
+            background: rgba(15, 5, 36, 0.85);
+            border: 2px solid #00ffff;
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.3),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .neon-card:hover {
+            border-color: #ff00ff;
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.5),
+                0 0 50px rgba(255, 0, 255, 0.4),
+                inset 0 0 25px rgba(255, 0, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .neon-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .neon-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: #ff00ff;
+            color: #fff;
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.6),
+                0 0 30px rgba(255, 0, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .neon-btn:active {
+            transform: scale(0.95);
+        }
+
+        .neon-input {
+            background: rgba(10, 10, 30, 0.7);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .neon-input:focus {
+            border-color: #ff00ff;
+            box-shadow:
+                0 0 15px rgba(255, 0, 255, 0.5),
+                inset 0 0 15px rgba(255, 0, 255, 0.2);
+            outline: none;
+        }
+
+        .neon-text {
+            color: #00ffff;
+            text-shadow: 0 0 8px #00ffff;
+            animation: glow-text 3s ease-in-out infinite;
+        }
+
+        .neon-table {
+            background: rgba(10, 10, 30, 0.8);
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .neon-table thead {
+            background: rgba(0, 255, 255, 0.1);
+            border-bottom: 2px solid #00ffff;
+        }
+
+        .neon-table tbody tr {
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .neon-table tbody tr:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .canvas-neon {
+            border: 3px solid #00ffff;
+            box-shadow:
+                0 0 20px rgba(0, 255, 255, 0.4),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .submit-btn-neon {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+            background-size: 200% 200%;
+            border: 3px solid #00ffff;
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow:
+                0 0 15px rgba(0, 255, 255, 0.4);
+            animation: gradient-flow 3s ease infinite;
+        }
+
+        .submit-btn-neon:hover {
+            border-color: #ff00ff;
+            transform: scale(1.05);
+            box-shadow:
+                0 0 25px rgba(0, 255, 255, 0.6),
+                0 0 40px rgba(255, 0, 255, 0.5);
+            animation: neon-pulse 1s ease-in-out infinite;
+        }
+
+        .submit-btn-neon:active {
+            transform: scale(0.95);
+        }
+
+        /* Стили для PrimeFaces spinner */
+        .ui-spinner {
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse; /* Меняем порядок: кнопки слева, поле справа */
+        }
+
+        .ui-spinner-input {
+            background: rgba(10, 10, 30, 0.7) !important;
+            border: 2px solid #00ffff !important;
+            color: #00ffff !important;
+            box-shadow: inset 0 0 10px rgba(0, 255, 255, 0.2) !important;
+            transition: all 0.3s ease !important;
+            border-radius: 0.5rem !important;
+            padding: 0.5rem !important;
+            text-align: center !important;
+        }
+
+        .ui-spinner-input:focus {
+            border-color: #ff00ff !important;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5), inset 0 0 15px rgba(255, 0, 255, 0.2) !important;
+            outline: none !important;
+        }
+
+        .ui-spinner-button {
+            background: rgba(10, 10, 30, 0.7) !important;
+            border: 2px solid #00ffff !important;
+            color: #00ffff !important;
+        }
+
+        .ui-spinner-button:hover {
+            background: rgba(0, 255, 255, 0.2) !important;
+            border-color: #ff00ff !important;
+        }
+
+        /* Стилизованные скроллбары */
+        .overflow-auto::-webkit-scrollbar,
+        div[style*="overflow-y"]::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .overflow-auto::-webkit-scrollbar-track,
+        div[style*="overflow-y"]::-webkit-scrollbar-track {
+            background: rgba(10, 10, 30, 0.5);
+            border-radius: 10px;
+        }
+
+        .overflow-auto::-webkit-scrollbar-thumb,
+        div[style*="overflow-y"]::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .overflow-auto::-webkit-scrollbar-thumb:hover,
+        div[style*="overflow-y"]::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+        }
+
+        /* Для Firefox */
+        .overflow-auto,
+        div[style*="overflow-y"] {
+            scrollbar-width: thin;
+            scrollbar-color: #00ffff rgba(10, 10, 30, 0.5);
+        }
+    </h:outputStylesheet>
 </h:head>
 <h:body>
 
     <!-- Main container for background -->
     <h:panelGroup layout="block"
-                  styleClass="bg-custom-light dark:bg-custom-dark backdrop-brightness-95 text-white min-h-screen">
+                  styleClass="neon-container text-white min-h-screen">
 
         <!-- Header -->
         <h:panelGroup layout="block" id="scrollToTop" styleClass="p-3">
             <h:panelGroup layout="block"
-                          styleClass="mt-0.5 custom-grid-sm grid h-14 grid-cols-1 content-center items-center gap-2 rounded-lg border border-white dark:border-custom-dark shadow-lg backdrop-blur-3xl">
-                <!-- Change theme icon -->
-                <h:panelGroup layout="block" styleClass="hidden justify-center sm:flex sm:justify-start">
-                    <a href="#" onclick="toggleTheme();" id="themeToggle" class="inline-flex items-center">
-                        <button id="lightBtn"
-                                class="ml-2 h-10 max-h-10 w-10 rounded-lg bg-neutral-800 p-2 text-yellow-400 hover:bg-gray-900">
-                            <i class="fa fa-sun"/>
-                        </button>
-                        <button id="darkBtn"
-                                class="ml-2 hidden h-10 max-h-10 w-10 rounded-lg bg-gray-900 p-2 text-yellow-500 hover:text-yellow-500">
-                            <i class="fa fa-moon"/>
-                        </button>
-                    </a>
-                </h:panelGroup>
+                          styleClass="neon-header mt-0.5 grid grid-cols-2 h-14 content-center items-center gap-4 rounded-lg px-4">
 
-
-                <!-- Header text -->
+                <!-- Header text (centered in first column) -->
                 <h:panelGroup layout="block" styleClass="flex justify-center">
-                    <p class="overflow-hidden whitespace-nowrap text-center align-middle text-base font-medium">var 789
-                        |
-                        Dvorkin Boris Alexandrovich | P3231</p>
+                    <p class="neon-text overflow-hidden whitespace-nowrap text-center align-middle text-base font-medium">
+                        Вариант 8394 | Мантуш Даниил Валерьевич | P3219
+                    </p>
                 </h:panelGroup>
 
-                <!-- Time in HH, MM, SS format -->
-                <h:panelGroup layout="block" styleClass="hidden sm:flex sm:justify-end mr-2">
+                <!-- Time (centered in second column) -->
+                <h:panelGroup layout="block" styleClass="flex justify-center">
                     <h:panelGroup layout="block" id="date-time"
-                                  styleClass="self-center text-right text-sm sm:text-base font-medium">
+                                  styleClass="neon-text text-center text-sm sm:text-base font-medium">
                         <h:outputText id="date" value="" escape="false"/>,
                         <h:outputText id="time" value="" escape="false"/>
                     </h:panelGroup>
@@ -65,169 +295,146 @@
 
             <!-- Date-time container for mobile (below md breakpoint) -->
             <h:panelGroup layout="block"
-                          styleClass="mt-2 flex justify-center rounded-lg border border-white dark:border-custom-dark p-2 shadow-lg backdrop-blur-3xl sm:hidden">
+                          styleClass="neon-card mt-2 flex justify-center p-2 sm:hidden">
                 <!-- Time in HH, MM, SS format -->
-                <h:panelGroup layout="block" id="date-time-mobile" styleClass="text-center text-base font-medium">
+                <h:panelGroup layout="block" id="date-time-mobile" styleClass="neon-text text-center text-base font-medium">
                     <h:outputText id="date-mobile" value="" escape="false"/>,
                     <h:outputText id="time-mobile" value="" escape="false"/>
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
 
-        <!-- Background for Graph, Buttons, and Input Form -->
-        <div style="background: url('#{request.contextPath}/resources/images/main.jpg') fixed; background-size: cover;">
-            <h:panelGroup layout="block" styleClass="content-container">
-
-                <!-- Graph, Buttons, and Input Form -->
-                <h:panelGroup layout="block" id="scrollToGraph"
-                              styleClass="graph-custom-grid-sm mt-5 grid grid-cols-1 gap-6">
-                    <!-- Graph (1st column) -->
-                    <h:panelGroup layout="block"
-                                  styleClass="flex justify-center overflow-auto rounded-lg border border-white dark:border-custom-dark shadow-md backdrop-blur-3xl">
-                        <canvas id="graphCanvas" width="650" height="650" class="graph"/>
-                    </h:panelGroup>
-
-                    <!-- Buttons (2nd column) -->
-                    <h:panelGroup layout="block"
-                                  styleClass="flex flex-row sm:flex-col items-center justify-center gap-4 sm:gap-6">
-                        <button id="clearPointsBtn" class="btn" onclick="showConfirmationPopup()">
-                            <i class="fa fa-trash"/>
-                        </button>
-                        <button id="drawModeBtn" class="btn"><i class="fa-solid fa-paintbrush"/></button>
-                        <button id="magnetModeBtn" class="btn"><i class="fa-solid fa-magnet"/></button>
-                        <button id="zoomInBtn" class="btn"><i class="fa-solid fa-plus"/></button>
-                        <button id="zoomOutBtn" class="btn"><i class="fa-solid fa-minus"/></button>
-                        <button id="restoreZoom" class="btn"><i class="fa-solid fa-rotate-right"/></button>
-                    </h:panelGroup>
-
-                    <!-- Input Form (3rd column) -->
-                    <h:form id="input-form" styleClass="input-form">
-                        <!-- X Select -->
-                        <h:panelGroup styleClass="flex flex-col gap-2">
-                            <h:outputLabel for="xValue" value="X: {-4, -3, -2, -1, 0, 1, 2, 3, 4}"
-                                           styleClass="block text-sm font-medium text-white dark:text-gray-300 text-center"/>
-                            <h:selectOneMenu id="xValue" value="#{xCoordinateBean.x}"
-                                             styleClass="input-text dark:text-gray-200">
-                                <f:selectItem itemValue="-4" itemLabel="-4"/>
-                                <f:selectItem itemValue="-3" itemLabel="-3"/>
-                                <f:selectItem itemValue="-2" itemLabel="-2"/>
-                                <f:selectItem itemValue="-1" itemLabel="-1"/>
-                                <f:selectItem itemValue="0" itemLabel="0"/>
-                                <f:selectItem itemValue="1" itemLabel="1"/>
-                                <f:selectItem itemValue="2" itemLabel="2"/>
-                                <f:selectItem itemValue="3" itemLabel="3"/>
-                                <f:selectItem itemValue="4" itemLabel="4"/>
-                            </h:selectOneMenu>
-                            <h:message for="xValue"
-                                       styleClass="text-red-500 dark:text-red-800 mt-2 bg-red-100 dark:bg-red-400 p-2 rounded border border-red-400 dark:border-custom-dark"/>
-                        </h:panelGroup>
-
-                        <!-- Y Input -->
-                        <h:panelGroup styleClass="flex flex-col gap-2">
-                            <h:outputLabel for="yValue" value="Y: (-5, 5)"
-                                           styleClass="block text-sm font-medium text-white dark:text-gray-300 text-center"/>
-                            <h:inputText id="yValue" value="#{yCoordinateBean.y}" maxlength="8"
-                                         styleClass="input-text dark:text-gray-200" converter="com.worthant.CommaToDotConverter">
-                                <f:validateDoubleRange minimum="-5" maximum="5"/>
-                            </h:inputText>
-                            <h:message for="yValue"
-                                       styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
-                        </h:panelGroup>
-
-                        <!-- R Spinner -->
-                        <h:panelGroup styleClass="flex flex-col gap-2">
-                            <h:outputLabel for="rValue" value="R: (0.1 ... 3), шаг 0.1"
-                                           styleClass="block text-sm font-medium text-white dark:text-gray-300 text-center"/>
-                            <p:spinner id="rValue" value="#{rCoordinateBean.r}" min="0.1" max="3" stepFactor="0.1"
-                                       styleClass="input-text dark:text-gray-200" onchange="updateCanvasFromSpinner()">
-                                <f:validateDoubleRange minimum="0.1" maximum="3"/>
-                            </p:spinner>
-                            <h:message for="rValue"
-                                       styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
-                        </h:panelGroup>
-
-                        <!-- Submit Button -->
-                        <h:commandButton value="Check" styleClass="submit-btn">
-                            <f:ajax execute="@form"
-                                    listener="#{resultsControllerBean.addResult(xCoordinateBean.x, yCoordinateBean.y, rCoordinateBean.r)}"
-                                    render="@form results-table"/>
-                        </h:commandButton>
-                    </h:form>
-                </h:panelGroup>
-            </h:panelGroup>
-        </div>
-
-        <!-- Background for Results dataTable -->
-        <div class="parallax-section"
-             style="background: url('#{request.contextPath}/resources/images/middle.jpg') fixed; background-size: cover;">
-            <h:panelGroup layout="block" id="scrollToTable" styleClass="content-container">
-
-                <!-- Results dataTable -->
+        <!-- Graph, Buttons, and Input Form -->
+        <h:panelGroup layout="block" styleClass="content-container">
+            <h:panelGroup layout="block" id="scrollToGraph"
+                          styleClass="graph-custom-grid-sm mt-5 grid grid-cols-1 gap-6">
+                <!-- Graph (1st column) -->
                 <h:panelGroup layout="block"
-                              styleClass="backdrop-brightness-95 mt-6 rounded-lg border border-white dark:border-custom-dark shadow-md backdrop-blur-3xl">
-                    <div style="max-height: 500px; overflow-y: auto;">
-                        <h:dataTable styleClass="data-table" id="results-table" var="result"
-                                     value="#{resultsControllerBean.results}">
-                            <!-- X column -->
-                            <h:column styleClass="column rounded-t-2xl">
-                                <f:facet name="header">
-                                    <h:outputText value="x"/>
-                                </f:facet>
-                                <h:outputText styleClass="text-center" value="#{result.x}"/>
-                            </h:column>
-
-                            <!-- Y column -->
-                            <h:column styleClass="column">
-                                <f:facet name="header">
-                                    <h:outputText value="y"/>
-                                </f:facet>
-                                <h:outputText styleClass="text-center" value="#{result.y}"/>
-                            </h:column>
-
-                            <!-- R column -->
-                            <h:column styleClass="column">
-                                <f:facet name="header">
-                                    <h:outputText value="r"/>
-                                </f:facet>
-                                <h:outputText styleClass="text-center" value="#{result.r}"/>
-                            </h:column>
-
-                            <!-- Hit column -->
-                            <h:column styleClass="column">
-                                <f:facet name="header">
-                                    <h:outputText value="hit"/>
-                                </f:facet>
-                                <h:panelGroup layout="block" styleClass="hit" rendered="#{result.result}">
-                                    <h:graphicImage library="images" name="hit.svg" alt="Hit"/>
-                                </h:panelGroup>
-                                <h:panelGroup layout="block" styleClass="miss" rendered="#{not result.result}">
-                                    <h:outputText value="❌"/>
-                                </h:panelGroup>
-                            </h:column>
-                        </h:dataTable>
-                    </div>
+                              styleClass="neon-card flex justify-center">
+                    <canvas id="graphCanvas" width="650" height="650" class="canvas-neon"/>
                 </h:panelGroup>
+
+                <!-- Buttons (2nd column) -->
+                <h:panelGroup layout="block"
+                              styleClass="flex flex-row sm:flex-col items-center justify-center gap-4 sm:gap-6">
+                    <button id="clearPointsBtn" class="neon-btn btn rounded-lg p-3 w-12 h-12" onclick="showConfirmationPopup()">
+                        <i class="fa fa-trash"/>
+                    </button>
+                </h:panelGroup>
+
+                <!-- Input Form (3rd column) -->
+                <h:form id="input-form" styleClass="neon-card input-form p-6">
+                    <!-- X Select -->
+                    <h:panelGroup styleClass="flex flex-col gap-2">
+                        <h:outputLabel for="xValue" value="X: {-4, -3, -2, -1, 0, 1, 2, 3, 4}"
+                                       styleClass="neon-text block text-sm font-medium text-center"/>
+                        <h:selectOneMenu id="xValue" value="#{xCoordinateBean.x}"
+                                         styleClass="neon-input rounded-lg p-2">
+                            <f:selectItem itemValue="-4" itemLabel="-4"/>
+                            <f:selectItem itemValue="-3" itemLabel="-3"/>
+                            <f:selectItem itemValue="-2" itemLabel="-2"/>
+                            <f:selectItem itemValue="-1" itemLabel="-1"/>
+                            <f:selectItem itemValue="0" itemLabel="0"/>
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                            <f:selectItem itemValue="3" itemLabel="3"/>
+                            <f:selectItem itemValue="4" itemLabel="4"/>
+                        </h:selectOneMenu>
+                        <h:message for="xValue"
+                                   styleClass="text-red-500 dark:text-red-800 mt-2 bg-red-100 dark:bg-red-400 p-2 rounded border border-red-400 dark:border-custom-dark"/>
+                    </h:panelGroup>
+
+                    <!-- Y Input -->
+                    <h:panelGroup styleClass="flex flex-col gap-2">
+                        <h:outputLabel for="yValue" value="Y: (-5, 5)"
+                                       styleClass="neon-text block text-sm font-medium text-center"/>
+                        <h:inputText id="yValue" value="#{yCoordinateBean.y}" maxlength="8"
+                                     styleClass="neon-input rounded-lg p-2" converter="com.nlshakal.CommaToDotConverter">
+                            <f:validateDoubleRange minimum="-5" maximum="5"/>
+                        </h:inputText>
+                        <h:message for="yValue"
+                                   styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
+                    </h:panelGroup>
+
+                    <!-- R Spinner -->
+                    <h:panelGroup styleClass="flex flex-col gap-2">
+                        <h:outputLabel for="rValue" value="R: (0.1 ... 3), шаг 0.1"
+                                       styleClass="neon-text block text-sm font-medium text-center"/>
+                        <p:spinner id="rValue" value="#{rCoordinateBean.r}" min="0.1" max="3" stepFactor="0.1"
+                                   decimalPlaces="1" widgetVar="rSpinner" styleClass="neon-input rounded-lg">
+                            <p:ajax event="valueChange" process="@this" update="@this" oncomplete="updateCanvasFromSpinner()"/>
+                            <f:validateDoubleRange minimum="0.1" maximum="3"/>
+                        </p:spinner>
+                        <h:message for="rValue"
+                                   styleClass="text-red-500 mt-2 bg-red-100 p-2 rounded border border-red-400"/>
+                    </h:panelGroup>
+
+                    <!-- Submit Button -->
+                    <h:commandButton value="Проверить" styleClass="submit-btn-neon w-full">
+                        <f:ajax execute="@form"
+                                listener="#{resultsControllerBean.addResult(xCoordinateBean.x, yCoordinateBean.y, rCoordinateBean.r)}"
+                                render="input-form results-table"/>
+                    </h:commandButton>
+                </h:form>
             </h:panelGroup>
-        </div>
+        </h:panelGroup>
 
-        <!-- Background for Link to index.xhtml -->
-        <div class="home-section">
-            <h:panelGroup layout="block" styleClass="content-container">
+        <!-- Results dataTable -->
+        <h:panelGroup layout="block" id="scrollToTable" styleClass="content-container mt-8">
+            <h:panelGroup layout="block" styleClass="neon-card">
+                <div style="max-height: 500px; overflow-y: auto;">
+                    <h:dataTable styleClass="neon-table w-full" id="results-table" var="result"
+                                 value="#{resultsControllerBean.results}">
+                        <!-- X column -->
+                        <h:column styleClass="column p-3 text-center">
+                            <f:facet name="header">
+                                <h:outputText styleClass="neon-text font-bold" value="X"/>
+                            </f:facet>
+                            <h:outputText styleClass="neon-text text-center" value="#{result.x}"/>
+                        </h:column>
 
-                <!-- Spacing for Parallax Scrolling Effect -->
-                <h:panelGroup layout="block" styleClass="h-80"/>
+                        <!-- Y column -->
+                        <h:column styleClass="column p-3 text-center">
+                            <f:facet name="header">
+                                <h:outputText styleClass="neon-text font-bold" value="Y"/>
+                            </f:facet>
+                            <h:outputText styleClass="neon-text text-center" value="#{result.y}"/>
+                        </h:column>
 
-                <!-- Home Button -->
-                <div class="home-button-container text-center">
-                    <h:link value="Tired? It's waiting for you ->" styleClass="btn-home" outcome="goToIndex">
-                        <i class="fa fa-home fa-2x"/>
-                    </h:link>
+                        <!-- R column -->
+                        <h:column styleClass="column p-3 text-center">
+                            <f:facet name="header">
+                                <h:outputText styleClass="neon-text font-bold" value="R"/>
+                            </f:facet>
+                            <h:outputText styleClass="neon-text text-center" value="#{result.r}"/>
+                        </h:column>
+
+                        <!-- Hit column -->
+                        <h:column styleClass="column p-3 text-center">
+                            <f:facet name="header">
+                                <h:outputText styleClass="neon-text font-bold" value="Результат"/>
+                            </f:facet>
+                            <h:panelGroup layout="block" styleClass="hit" rendered="#{result.result}">
+                                <h:graphicImage library="images" name="hit.svg" alt="Hit" styleClass="inline-block w-6 h-6"/>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="miss" rendered="#{not result.result}">
+                                <h:outputText styleClass="text-2xl" value="❌"/>
+                            </h:panelGroup>
+                        </h:column>
+                    </h:dataTable>
                 </div>
-
-                <!-- Additional Spacing if needed -->
-                <h:panelGroup layout="block" styleClass="h-24"/>
             </h:panelGroup>
-        </div>
+        </h:panelGroup>
+
+        <!-- Home Button Section -->
+        <h:panelGroup layout="block" styleClass="content-container mt-12 mb-12">
+            <!-- Home Button -->
+            <div class="text-center">
+                <h:link styleClass="neon-btn inline-flex items-center gap-3 rounded-full px-8 py-4 text-lg font-bold" outcome="goToIndex">
+                    <i class="fa fa-home fa-2x"/>
+                </h:link>
+            </div>
+        </h:panelGroup>
 
     </h:panelGroup>
 
@@ -258,7 +465,8 @@
         <h:commandButton id="handleClick" styleClass="hidden">
             <f:ajax execute="@form"
                     listener="#{resultsControllerBean.addResult(coordinateHandlerBean.x, coordinateHandlerBean.y, rCoordinateBean.r)}"
-                    render="@form xGraphValue yGraphValue results-table"/>
+                    render="results-table"
+                    oncomplete="console.log('Point added successfully')"/>
         </h:commandButton>
     </h:form>
 
@@ -268,7 +476,8 @@
         <h:commandButton id="clearPoints" styleClass="hidden">
             <f:ajax execute="@form"
                     listener="#{resultsControllerBean.clearResults()}"
-                    render="input-form results-table"/>
+                    render="input-form results-table"
+                    oncomplete="redrawGraphAfterClear()"/>
         </h:commandButton>
     </h:form>
 
@@ -287,3 +496,4 @@
 
 </h:body>
 </html>
+

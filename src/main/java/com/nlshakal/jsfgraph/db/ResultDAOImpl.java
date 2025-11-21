@@ -1,22 +1,15 @@
-package com.worthant.jsfgraph.db;
+package com.nlshakal.jsfgraph.db;
 
-import com.worthant.jsfgraph.entity.ResultEntity;
+import com.nlshakal.jsfgraph.entity.ResultEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.criteria.Root;
 
 import java.util.Collection;
 
-/**
- * Implementation of the ResultDAO interface using JPA (Java Persistence API).
- * Handles database operations for ResultEntity objects.
- */
 public class ResultDAOImpl implements ResultDAO {
     private final EntityManager entityManager = JPAUtils.getFactory().createEntityManager();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void addNewResult(ResultEntity result) {
         entityManager.getTransaction().begin();
@@ -24,9 +17,6 @@ public class ResultDAOImpl implements ResultDAO {
         entityManager.getTransaction().commit();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void updateResult(Long result_id, ResultEntity result) {
         entityManager.getTransaction().begin();
@@ -34,17 +24,11 @@ public class ResultDAOImpl implements ResultDAO {
         entityManager.getTransaction().commit();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ResultEntity getResultById(Long result_id) {
         return entityManager.getReference(ResultEntity.class, result_id);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Collection<ResultEntity> getAllResults() {
         var cm = entityManager.getCriteriaBuilder().createQuery(ResultEntity.class);
@@ -52,9 +36,6 @@ public class ResultDAOImpl implements ResultDAO {
         return entityManager.createQuery(cm.select(root)).getResultList();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void deleteResult(ResultEntity result) {
         entityManager.getTransaction().begin();
@@ -62,10 +43,6 @@ public class ResultDAOImpl implements ResultDAO {
         entityManager.getTransaction().commit();
     }
 
-    /**
-     * {@inheritDoc}
-     * This method also handles transaction rollback in case of an error.
-     */
     @Override
     public void clearResults() {
         entityManager.getTransaction().begin();
@@ -77,7 +54,7 @@ public class ResultDAOImpl implements ResultDAO {
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
-            throw e; // Or handle the exception as needed
+            throw e;
         } finally {
             entityManager.clear();
         }

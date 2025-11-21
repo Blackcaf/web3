@@ -29,7 +29,7 @@ $(document).ready(() => {
 });
 
 window.onload = () => {
-    const r = 1.5; // R = 1.5; base value for showcasing the graph to user (middle of 0.1-3 range)
+    const r = 1.5;
     setupCanvas(r);
     attachCanvasListeners();
     drawGraph(r);
@@ -40,145 +40,58 @@ window.drawGraph = function drawGraph(R) {
     setDynamicScalingFactor(R);
     const { ctx, width, height, k, dynamicScalingFactor } = getGraphSetup();
 
-    // Setup axes
     const yAxisOffset = 15;
     const xAxisStartX = (width / 2) - ((width / 4) * k);
     const xAxisEndX = (width / 2) + ((width / 4) * k);
     const yAxisStartY = (height / 2) + ((height / 4) * k);
     const yAxisEndY = (height / 2) - ((height / 4) * k);
 
-    // Clear canvas with dark background
     ctx.fillStyle = "rgba(15, 12, 41, 0.9)";
     ctx.fillRect(0, 0, width, height);
 
-    // Add grid
-    ctx.strokeStyle = "rgba(124, 58, 237, 0.1)";
-    ctx.lineWidth = 1;
-    for (let i = -R; i <= R; i += R / 2) {
-        // Vertical lines
-        const xPos = width / 2 + i * dynamicScalingFactor;
-        ctx.beginPath();
-        ctx.moveTo(xPos, yAxisEndY);
-        ctx.lineTo(xPos, yAxisStartY);
-        ctx.stroke();
-
-        // Horizontal lines
-        const yPos = height / 2 - i * dynamicScalingFactor;
-        ctx.beginPath();
-        ctx.moveTo(xAxisStartX, yPos);
-        ctx.lineTo(xAxisEndX, yPos);
-        ctx.stroke();
-    }
-
-    ctx.font = "bold 16px Inter, sans-serif";
-    ctx.strokeStyle = "rgba(124, 58, 237, 0.5)";
-    ctx.lineWidth = 2;
-
-    // Draw scaled axes
     drawAxis(ctx, xAxisStartX, height / 2, xAxisEndX, height / 2, k);  // X-axis
     drawAxis(ctx, width / 2, yAxisStartY, width / 2, yAxisEndY, k); // Y-axis
 
-    // Drawing the areas with neon glow effects
 
-    // Rectangle (upper left quadrant) - Cyan neon
-    const gradientLeft = ctx.createLinearGradient(
-        width / 2 - R / 2 * dynamicScalingFactor,
-        height / 2 - R * dynamicScalingFactor,
-        width / 2,
-        height / 2
-    );
-    gradientLeft.addColorStop(0, "rgba(34, 211, 238, 0.4)");
-    gradientLeft.addColorStop(1, "rgba(59, 130, 246, 0.4)");
-
-    ctx.fillStyle = gradientLeft;
-    ctx.shadowColor = "rgba(34, 211, 238, 0.8)";
-    ctx.shadowBlur = 20;
-    ctx.fillRect(width / 2 - R / 2 * dynamicScalingFactor, height / 2 - R * dynamicScalingFactor, R / 2 * dynamicScalingFactor, R * dynamicScalingFactor);
-
-    ctx.strokeStyle = "rgba(34, 211, 238, 1)";
-    ctx.lineWidth = 3;
-    ctx.shadowBlur = 15;
-    ctx.strokeRect(width / 2 - R / 2 * dynamicScalingFactor, height / 2 - R * dynamicScalingFactor, R / 2 * dynamicScalingFactor, R * dynamicScalingFactor);
-
-    // Rectangle (upper right quadrant) - Purple neon
-    const gradientRight = ctx.createLinearGradient(
-        width / 2,
-        height / 2 - R / 2 * dynamicScalingFactor,
-        width / 2 + R / 2 * dynamicScalingFactor,
-        height / 2
-    );
-    gradientRight.addColorStop(0, "rgba(168, 85, 247, 0.4)");
-    gradientRight.addColorStop(1, "rgba(236, 72, 153, 0.4)");
-
-    ctx.fillStyle = gradientRight;
-    ctx.shadowColor = "rgba(168, 85, 247, 0.8)";
-    ctx.shadowBlur = 20;
-    ctx.fillRect(width / 2, height / 2 - R / 2 * dynamicScalingFactor, R / 2 * dynamicScalingFactor, R / 2 * dynamicScalingFactor);
-
-    ctx.strokeStyle = "rgba(168, 85, 247, 1)";
-    ctx.lineWidth = 3;
-    ctx.shadowBlur = 15;
-    ctx.strokeRect(width / 2, height / 2 - R / 2 * dynamicScalingFactor, R / 2 * dynamicScalingFactor, R / 2 * dynamicScalingFactor);
-
-    // Quarter circle (lower left quadrant) - Green neon
-    const gradientCircle = ctx.createRadialGradient(
-        width / 2, height / 2, 0,
-        width / 2, height / 2, R * dynamicScalingFactor
-    );
-    gradientCircle.addColorStop(0, "rgba(52, 211, 153, 0.5)");
-    gradientCircle.addColorStop(1, "rgba(16, 185, 129, 0.3)");
-
-    ctx.fillStyle = gradientCircle;
-    ctx.shadowColor = "rgba(52, 211, 153, 0.8)";
-    ctx.shadowBlur = 25;
+    ctx.fillStyle = "rgba(34, 211, 238, 0.6)";
     ctx.beginPath();
-    ctx.arc(width / 2, height / 2, R * dynamicScalingFactor, 0.5 * Math.PI, Math.PI);
+    ctx.moveTo(width / 2, height / 2);
+    ctx.lineTo(width / 2 - R / 2 * dynamicScalingFactor, height / 2);
+    ctx.lineTo(width / 2, height / 2 - R * dynamicScalingFactor);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = "rgba(168, 85, 247, 0.6)";
+    ctx.fillRect(width / 2, height / 2 - R * dynamicScalingFactor, R * dynamicScalingFactor, R * dynamicScalingFactor);
+
+    ctx.fillStyle = "rgba(52, 211, 153, 0.6)";
+    ctx.beginPath();
+    ctx.arc(width / 2, height / 2, R * dynamicScalingFactor, 0, 0.5 * Math.PI);
     ctx.lineTo(width / 2, height / 2);
     ctx.closePath();
     ctx.fill();
 
-    ctx.strokeStyle = "rgba(52, 211, 153, 1)";
-    ctx.lineWidth = 3;
-    ctx.shadowBlur = 15;
-    ctx.stroke();
-
-    // Reset shadow
-    ctx.shadowBlur = 0;
-
-    // Draw labels with neon glow
     ctx.fillStyle = "#ffffff";
-    ctx.shadowColor = "rgba(124, 58, 237, 0.8)";
-    ctx.shadowBlur = 10;
     ctx.font = "bold 14px Inter, sans-serif";
 
-    // X-axis labels
-    ctx.fillText(R.toString(), width / 2 + R * dynamicScalingFactor, height / 2 + 30);
-    ctx.fillText((R / 2).toString(), width / 2 + (R / 2) * dynamicScalingFactor, height / 2 + 30);
-    ctx.fillText((-R).toString(), width / 2 - R * dynamicScalingFactor, height / 2 + 30);
-    ctx.fillText((-R / 2).toString(), width / 2 - (R / 2) * dynamicScalingFactor, height / 2 + 30);
+    ctx.fillText(R.toString(), width / 2 + R * dynamicScalingFactor - 5, height / 2 + 30);
+    ctx.fillText((R / 2).toString(), width / 2 + (R / 2) * dynamicScalingFactor - 10, height / 2 + 30);
+    ctx.fillText((-R).toString(), width / 2 - R * dynamicScalingFactor - 5, height / 2 + 30);
+    ctx.fillText((-R / 2).toString(), width / 2 - (R / 2) * dynamicScalingFactor - 15, height / 2 + 30);
     ctx.fillText("X", width / 2 + (3.12 * R / 2) * dynamicScalingFactor, height / 2 + 5);
 
-    // Y-axis labels
-    ctx.fillText(R.toString(), width / 2 + yAxisOffset, height / 2 - R * dynamicScalingFactor);
-    ctx.fillText((R / 2).toString(), width / 2 + yAxisOffset, height / 2 - (R / 2) * dynamicScalingFactor);
-    ctx.fillText((-R).toString(), width / 2 + yAxisOffset, height / 2 + R * dynamicScalingFactor);
-    ctx.fillText((-R / 2).toString(), width / 2 + yAxisOffset, height / 2 + (R / 2) * dynamicScalingFactor);
+    ctx.fillText(R.toString(), width / 2 + yAxisOffset, height / 2 - R * dynamicScalingFactor + 5);
+    ctx.fillText((R / 2).toString(), width / 2 + yAxisOffset, height / 2 - (R / 2) * dynamicScalingFactor + 5);
+    ctx.fillText((-R).toString(), width / 2 + yAxisOffset, height / 2 + R * dynamicScalingFactor + 5);
+    ctx.fillText((-R / 2).toString(), width / 2 + yAxisOffset, height / 2 + (R / 2) * dynamicScalingFactor + 5);
     ctx.fillText("Y", width / 2 - 5, height / 2 - (3.15 * R / 2) * dynamicScalingFactor);
 
-    // Reset shadow
-    ctx.shadowBlur = 0;
-    ctx.fillText((-R / 2).toString(), width / 2 + yAxisOffset, height / 2 + (R / 2) * dynamicScalingFactor);
-    ctx.fillText("Y", width / 2 - 5, height / 2 - (3.15 * R / 2) * dynamicScalingFactor);
-
-    // Draw ticks with neon effect
-    ctx.strokeStyle = "rgba(124, 58, 237, 1)";
+    ctx.strokeStyle = "#ffffff";
     ctx.lineWidth = 2;
-    ctx.shadowColor = "rgba(124, 58, 237, 0.5)";
-    ctx.shadowBlur = 10;
 
-    // X-axis tics
-    const tickLength = 10; // Length of the tick marks
+    const tickLength = 10;
     for (let tickValue = -R; tickValue <= R; tickValue += R / 2) {
+        if (tickValue === 0) continue; // Skip center
         const xTickPosition = width / 2 + tickValue * dynamicScalingFactor;
         ctx.beginPath();
         ctx.moveTo(xTickPosition, height / 2 - tickLength / 2);
@@ -186,28 +99,22 @@ window.drawGraph = function drawGraph(R) {
         ctx.stroke();
     }
 
-    // Y-axis tics
     for (let tickValue = -R; tickValue <= R; tickValue += R / 2) {
+        if (tickValue === 0) continue; // Skip center
         const yTickPosition = height / 2 - tickValue * dynamicScalingFactor;
         ctx.beginPath();
         ctx.moveTo(width / 2 - tickLength / 2, yTickPosition);
         ctx.lineTo(width / 2 + tickLength / 2, yTickPosition);
         ctx.stroke();
     }
-
-    // Reset shadow
-    ctx.shadowBlur = 0;
 }
 
 export function drawAxis(context, fromX, fromY, toX, toY, k) {
-    const headLength = 10 * k; // Scale the arrowhead size
+    const headLength = 10 * k;
     const angle = Math.atan2(toY - fromY, toX - fromX);
 
-    // Neon glow effect for axes
-    context.strokeStyle = "rgba(124, 58, 237, 1)";
+    context.strokeStyle = "#ffffff";
     context.lineWidth = 2;
-    context.shadowColor = "rgba(124, 58, 237, 0.8)";
-    context.shadowBlur = 15;
 
     context.beginPath();
     context.moveTo(fromX, fromY);
@@ -216,9 +123,6 @@ export function drawAxis(context, fromX, fromY, toX, toY, k) {
     context.moveTo(toX, toY);
     context.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
     context.stroke();
-
-    // Reset shadow
-    context.shadowBlur = 0;
 }
 
 export function translateCanvasCoordsToReal(canvasX, canvasY) {
@@ -280,8 +184,9 @@ export function attachCanvasListeners() {
             y = snapToGrid(y);
         }
 
-        ({ canvasX, canvasY } = translateRealCoordsToCanvas(x, y));
-        drawDotOnCanvas(canvasX, canvasY);
+        // НЕ рисуем точку сразу - дождемся ответа от сервера
+        // ({ canvasX, canvasY } = translateRealCoordsToCanvas(x, y));
+        // drawDotOnCanvas(canvasX, canvasY);
 
         console.log(x, y);
         sendCoords(x, y);
@@ -308,21 +213,16 @@ export function attachCanvasListeners() {
             const mouseX = (e.clientX - boundingRect.left) * scaleMouseX;
             const mouseY = (e.clientY - boundingRect.top) * scaleMouseY;
 
-            // Convert mouse coordinates to real graph coordinates
             let { x, y } = translateCanvasCoordsToReal(mouseX, mouseY);
 
-            // Snap coordinates if magnet mode is active
             if (getMagnetModeState()) {
                 x = snapToGrid(x);
                 y = snapToGrid(y);
             }
 
-            // Convert back to canvas coordinates if necessary
             const { canvasX, canvasY } = translateRealCoordsToCanvas(x, y);
 
-            // Draw a semi-transparent dot at the calculated position
             drawDot(canvasX, canvasY);
-            // sendToServer
             sendCoords(x, y);
         }, 30);
     });
@@ -344,10 +244,8 @@ function drawDot(x, y) {
     const canvas = document.getElementById("graphCanvas");
     const ctx = canvas.getContext("2d");
 
-    // Set the style for the dot
-    ctx.fillStyle = "rgba(128, 128, 128, 0.5)"; // Semi-transparent gray
+    ctx.fillStyle = "rgba(128, 128, 128, 0.5)";
 
-    // Draw the dot
     ctx.beginPath();
     ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.fill();
@@ -356,19 +254,18 @@ function drawDot(x, y) {
 window.drawDotOnCanvas = function drawDotOnCanvas(x, y, r, result, isRealCoords = false) {
     const ctx = getContext();
     let canvasX, canvasY;
-    console.log(x, y, r, result, isRealCoords);
-    console.log("drawing");
+    console.log("drawDotOnCanvas called:", x, y, r, result, isRealCoords);
 
     if (isRealCoords) {
-        // setDynamicScalingFactor(r);
+        setDynamicScalingFactor(r); // Восстанавливаем масштаб
         ({ canvasX, canvasY } = translateRealCoordsToCanvas(x, y));
-        console.log("Translation: ", x, y);
+        console.log("Translation from real coords:", x, y, "to canvas:", canvasX, canvasY);
     } else {
         canvasX = x;
         canvasY = y;
     }
 
-    console.log("Coords: ", canvasX, canvasY);
+    console.log("Drawing dot at canvas coords:", canvasX, canvasY);
 
     ctx.fillStyle = result === undefined ? "gray" : result ? "green" : "red";
     ctx.beginPath();
@@ -376,37 +273,9 @@ window.drawDotOnCanvas = function drawDotOnCanvas(x, y, r, result, isRealCoords 
     ctx.fill();
 }
 
-export function setupZoomButtons() {
-    $("#zoomInBtn").on("click", () => {
-        setK(getK()*1.1);
+export function setupZoomButtons() {}
 
-        drawGraph(parseR());
-        restorePoints();
-    });
-    $("#zoomOutBtn").on("click", () => {
-        setK(getK()/1.1);
-
-        drawGraph(parseR());
-        restorePoints();
-    });
-    $("#restoreZoom").on("click", () => {
-        setK(1.7); // base scaling constant
-
-        drawGraph(parseR());
-        restorePoints();
-    });
-}
-
-export function setupGraphModes() {
-    $("#drawModeBtn").click(() => {
-        setDrawModeState(!getDrawModeState());
-        $("#drawModeBtn").toggleClass("pressed");
-    });
-    $("#magnetModeBtn").click(() => {
-        setMagnetModeState(!getMagnetModeState());
-        $("#magnetModeBtn").toggleClass("pressed");
-    });
-}
+export function setupGraphModes() {}
 
 window.updateX = function updateX(event, ui) {
     const label = $("#input-form\\:xValueLabel");
@@ -448,8 +317,13 @@ window.hideConfirmationPopup = function hideConfirmationPopup() {
 
 window.deletePoints = function deletePoints() {
     hideConfirmationPopup();
-    drawGraph(parseR());
     $("#clear-points\\:clearPoints").click();
+}
+
+window.redrawGraphAfterClear = function redrawGraphAfterClear() {
+    const r = parseR();
+    drawGraph(r);
+    console.log("Graph redrawn after clearing points");
 }
 
 export function restorePoints() {
@@ -463,13 +337,13 @@ export function setupParallax() {
         var tableTop = $('#scrollToTable').offset().top;
         var windowHeight = $(window).height();
         var distance = Math.max(tableTop - scrollTop - windowHeight, 0);
-        var maxDistance = 500; // Maximum distance for effect
+        var maxDistance = 500;
         var transitionFactor = Math.max(1 - distance / maxDistance, 0);
 
         // Smooth transition between white and icy-neon
-        var red = 255 - transitionFactor * (255 - 0);   // Red: 255 -> 0
-        var green = 255 - transitionFactor * (255 - 255); // Green: 255 -> 255
-        var blue = 255 - transitionFactor * (255 - 255);  // Blue: 255 -> 255
+        var red = 255 - transitionFactor * (255 - 0);
+        var green = 255 - transitionFactor * (255 - 255);
+        var blue = 255 - transitionFactor * (255 - 255);
         var borderColor = 'rgb(' + red + ',' + green + ',' + blue + ')';
 
         $('#scrollToTable').css('border-color', borderColor);

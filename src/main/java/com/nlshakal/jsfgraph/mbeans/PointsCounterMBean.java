@@ -1,4 +1,4 @@
-package com.worthant.jsfgraph.mbeans;
+package com.nlshakal.jsfgraph.mbeans;
 
 public interface PointsCounterMBean {
     int getTotalPoints();
