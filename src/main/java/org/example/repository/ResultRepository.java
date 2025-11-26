@@ -15,27 +15,23 @@ import jakarta.persistence.Query;
 
 @ApplicationScoped
 public class ResultRepository {
-    
+
     private EntityManagerFactory emf;
-    private EntityManager em;
-    
+
     @PostConstruct
     public void init() {
         emf = Persistence.createEntityManagerFactory("web3PU");
-        em = emf.createEntityManager();
     }
-    
+
     @PreDestroy
     public void destroy() {
-        if (em != null && em.isOpen()) {
-            em.close();
-        }
         if (emf != null && emf.isOpen()) {
             emf.close();
         }
     }
 
     public void save(ResultEntity entity) {
+        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(entity);
@@ -45,20 +41,26 @@ public class ResultRepository {
                 em.getTransaction().rollback();
             }
             throw new RuntimeException("Error saving result", e);
+        } finally {
+            em.close();
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<ResultEntity> findAll() {
+        EntityManager em = emf.createEntityManager();
         try {
             Query query = em.createQuery("SELECT r FROM ResultEntity r ORDER BY r.timestamp DESC");
             return query.getResultList();
         } catch (Exception e) {
             return new ArrayList<>();
+        } finally {
+            em.close();
         }
     }
-    
+
     public void deleteAll() {
+        EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             Query query = em.createQuery("DELETE FROM ResultEntity");
@@ -69,7 +71,8 @@ public class ResultRepository {
                 em.getTransaction().rollback();
             }
             throw new RuntimeException("Error clearing results", e);
+        } finally {
+            em.close();
         }
     }
 }
-

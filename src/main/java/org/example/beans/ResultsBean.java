@@ -1,7 +1,8 @@
 package org.example.beans;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.push.Push;
+import jakarta.faces.push.PushContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.example.dto.ResultDTO;
@@ -11,19 +12,23 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named("resultsBean")
-@SessionScoped
+@ApplicationScoped
 public class ResultsBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     @Inject
     private ResultService resultService;
-    
-    @PostConstruct
+
+    @Inject
+    @Push(channel = "resultChannel")
+    private PushContext pushContext;
+
     public void init() {
     }
 
     public void addResult(ResultDTO resultDTO) {
         resultService.addResult(resultDTO);
+        pushContext.send("update");
     }
 
     public List<ResultDTO> getResults() {
@@ -32,6 +37,6 @@ public class ResultsBean implements Serializable {
 
     public void clearResults() {
         resultService.clearAllResults();
+        pushContext.send("update");
     }
 }
-

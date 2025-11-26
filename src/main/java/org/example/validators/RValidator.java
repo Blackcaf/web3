@@ -6,25 +6,25 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
+import org.example.config.Config;
 
 @FacesValidator("rValidator")
 public class RValidator implements Validator<Double> {
-    
-    private static final double MIN_R = 0.1;
-    private static final double MAX_R = 3.0;
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component, Double value) throws ValidatorException {
         if (value == null) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Validation Error", "R value cannot be empty"));
         }
-        
-        if (value < MIN_R || value > MAX_R) {
+
+        double min = Config.getMinR().doubleValue();
+        double max = Config.getMaxR().doubleValue();
+
+        if (value < min || value > max) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Validation Error", 
-                    String.format("R value must be between %.1f and %.1f", MIN_R, MAX_R)));
+                    "Validation Error",
+                    String.format("R value must be between %.1f and %.1f", min, max)));
         }
     }
 }
-

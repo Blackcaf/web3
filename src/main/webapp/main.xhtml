@@ -1,212 +1,212 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
       xmlns:p="http://primefaces.org/ui">
 <f:view transient="false">
-<h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta charset="UTF-8"/>
-    <title>Лабораторная работа 3 - Проверка попадания точки</title>
-    <h:outputStylesheet name="styles/reset.css"/>
-    <h:outputStylesheet name="styles/main.css"/>
-    <script type="text/javascript" src="#{request.contextPath}/scripts/main.js"></script>
-    <style>
-        body.main-page input[id*="rValue_input"],
-        body.main-page input.ui-spinner-input,
-        body.main-page input[id*="rValue"][id*="input"],
-        body.main-page .ui-spinner input[type="text"] {
-            text-align: left !important;
-            padding: 12px 16px !important;
-            padding-right: 45px !important;
-            width: 180px !important;
-            min-width: 180px !important;
-            max-width: 180px !important;
-            color: #1e293b !important;
-            background-color: #ffffff !important;
-            border: 2px solid #b8daff !important;
-            border-radius: 10px !important;
-            font-size: 14px !important;
-            font-family: 'Segoe UI', system-ui, sans-serif !important;
-            transition: all 0.2s ease !important;
-        }
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta charset="UTF-8"/>
+        <title>Лабораторная работа 3 - Проверка попадания точки</title>
+        <h:outputStylesheet name="styles/reset.css"/>
+        <h:outputStylesheet name="styles/main.css"/>
+        <script type="text/javascript" src="#{request.contextPath}/scripts/main.js"></script>
+        <style>
+            body.main-page input[id*="rValue_input"],
+            body.main-page input.ui-spinner-input,
+            body.main-page input[id*="rValue"][id*="input"],
+            body.main-page .ui-spinner input[type="text"] {
+                text-align: left !important;
+                padding: 12px 16px !important;
+                padding-right: 45px !important;
+                width: 180px !important;
+                min-width: 180px !important;
+                max-width: 180px !important;
+                color: #1e293b !important;
+                background-color: #ffffff !important;
+                border: 2px solid #b8daff !important;
+                border-radius: 10px !important;
+                font-size: 14px !important;
+                font-family: 'Segoe UI', system-ui, sans-serif !important;
+                transition: all 0.2s ease !important;
+            }
 
-        body.main-page input[id*="rValue_input"]:focus,
-        body.main-page .ui-spinner input[type="text"]:focus {
-            border-color: #1e90ff !important;
-            box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15) !important;
-        }
-        
-        body.main-page .ui-spinner {
-            display: inline-block !important;
-            position: relative !important;
-        }
-        
-        body.main-page .ui-spinner .ui-spinner-button {
-            position: absolute !important;
-            right: 2px !important;
-            width: 32px !important;
-            height: calc(50% - 1px) !important;
-            border: none !important;
-            background: linear-gradient(135deg, #1e90ff 0%, #00bfff 100%) !important;
-            color: #fff !important;
-            cursor: pointer !important;
-            transition: all 0.2s ease !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
+            body.main-page input[id*="rValue_input"]:focus,
+            body.main-page .ui-spinner input[type="text"]:focus {
+                border-color: #1e90ff !important;
+                box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15) !important;
+            }
 
-        body.main-page .ui-spinner .ui-spinner-button:hover {
-            opacity: 0.9 !important;
-        }
+            body.main-page .ui-spinner {
+                display: inline-block !important;
+                position: relative !important;
+            }
 
-        body.main-page .ui-spinner .ui-spinner-up {
-            top: 2px !important;
-            border-radius: 0 8px 0 0 !important;
-        }
+            body.main-page .ui-spinner .ui-spinner-button {
+                position: absolute !important;
+                right: 2px !important;
+                width: 32px !important;
+                height: calc(50% - 1px) !important;
+                border: none !important;
+                background: linear-gradient(135deg, #1e90ff 0%, #00bfff 100%) !important;
+                color: #fff !important;
+                cursor: pointer !important;
+                transition: all 0.2s ease !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
 
-        body.main-page .ui-spinner .ui-spinner-down {
-            bottom: 2px !important;
-            border-radius: 0 0 8px 0 !important;
-        }
+            body.main-page .ui-spinner .ui-spinner-button:hover {
+                opacity: 0.9 !important;
+            }
 
-        body.main-page .ui-spinner .ui-icon {
-            color: #fff !important;
-            font-size: 12px !important;
-        }
-        
-        #checkButton {
-            margin-top: 8px;
-        }
-        .btn-danger {
-            background: var(--error) !important;
-            border-color: var(--error) !important;
-            color: #fff !important;
-            margin-bottom: 16px;
-        }
-        .btn-danger:hover {
-            background: #c53030 !important;
-            border-color: #c53030 !important;
-        }
-    </style>
-</h:head>
-<body class="main-page">
+            body.main-page .ui-spinner .ui-spinner-up {
+                top: 2px !important;
+                border-radius: 0 8px 0 0 !important;
+            }
+
+            body.main-page .ui-spinner .ui-spinner-down {
+                bottom: 2px !important;
+                border-radius: 0 0 8px 0 !important;
+            }
+
+            body.main-page .ui-spinner .ui-icon {
+                color: #fff !important;
+                font-size: 12px !important;
+            }
+
+            #checkButton {
+                margin-top: 8px;
+            }
+            .btn-danger {
+                background: var(--error) !important;
+                border-color: var(--error) !important;
+                color: #fff !important;
+                margin-bottom: 16px;
+            }
+            .btn-danger:hover {
+                background: #c53030 !important;
+                border-color: #c53030 !important;
+            }
+        </style>
+    </h:head>
+    <body class="main-page">
     <header>
         <div class="container">
             <h1>Проверка попадания точки в область</h1>
         </div>
     </header>
     <main>
-    <h:form id="mainForm">
-        <div class="two-column-layout">
+        <h:form id="mainForm">
+            <div class="two-column-layout">
+                <div class="form-section">
+                    <h2>Проверка попадания точки</h2>
+
+                    <div class="form-group">
+                        <h:outputLabel for="xValue" value="X:"/>
+                        <h:selectOneMenu id="xValue" value="#{areaCheckBean.x}"
+                                         required="true" requiredMessage="X обязателен для ввода">
+                            <f:selectItem itemValue="-4" itemLabel="-4"/>
+                            <f:selectItem itemValue="-3" itemLabel="-3"/>
+                            <f:selectItem itemValue="-2" itemLabel="-2"/>
+                            <f:selectItem itemValue="-1" itemLabel="-1"/>
+                            <f:selectItem itemValue="0" itemLabel="0"/>
+                            <f:selectItem itemValue="1" itemLabel="1"/>
+                            <f:selectItem itemValue="2" itemLabel="2"/>
+                            <f:selectItem itemValue="3" itemLabel="3"/>
+                            <f:selectItem itemValue="4" itemLabel="4"/>
+                            <f:convertNumber integerOnly="true"/>
+                            <f:validator validatorId="xValidator"/>
+                        </h:selectOneMenu>
+                        <h:message for="xValue" styleClass="error-message" id="xValueMessage"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="yValue" value="Y:"/>
+                        <h:inputText id="yValue" value="#{areaCheckBean.y}"
+                                     required="true" requiredMessage="Y обязателен для ввода"
+                                     converter="jakarta.faces.Double">
+                            <f:validateDoubleRange minimum="-5.0" maximum="5.0"/>
+                        </h:inputText>
+                        <p class="hint-text">
+                            Диапазон: от -5 до 5
+                        </p>
+                        <h:message for="yValue" styleClass="error-message" id="yValueMessage"/>
+                    </div>
+
+                    <div class="form-group">
+                        <h:outputLabel for="rValue" value="R:"/>
+                        <p:spinner id="rValue" value="#{areaCheckBean.r}"
+                                   min="0.1" max="3.0" stepFactor="0.1"
+                                   required="true" requiredMessage="R обязателен"
+                                   decimalPlaces="1"
+                                   style="direction: ltr !important;"
+                                   styleClass="r-spinner"/>
+                        <p class="hint-text">
+                            Шаг изменения: 0.1
+                        </p>
+                        <h:message for="rValue" styleClass="error-message"/>
+                    </div>
+
+                    <h:commandButton id="checkButton" value="Проверить" action="#{areaCheckBean.checkPoint()}">
+                        <f:ajax execute="@form" render="mainForm:resultsTable mainForm:yValueMessage mainForm:xValueMessage"
+                                oncomplete="setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100);"/>
+                    </h:commandButton>
+                </div>
+
+                <div class="form-section">
+                    <h2>Область</h2>
+                    <div class="canvas-container">
+                        <canvas id="area" width="400" height="400"></canvas>
+                    </div>
+                    <p class="canvas-hint">
+                        Перемещайте курсор по графику для выбора X и Y. Клик для отправки формы.
+                    </p>
+                </div>
+            </div>
+
+            <script type="text/javascript" src="#{request.contextPath}/scripts/area.js"></script>
+
             <div class="form-section">
-                <h2>Проверка попадания точки</h2>
-
-                <div class="form-group">
-                    <h:outputLabel for="xValue" value="X:"/>
-                    <h:selectOneMenu id="xValue" value="#{areaCheckBean.x}"
-                                    required="true" requiredMessage="X обязателен для ввода">
-                        <f:selectItem itemValue="-4" itemLabel="-4"/>
-                        <f:selectItem itemValue="-3" itemLabel="-3"/>
-                        <f:selectItem itemValue="-2" itemLabel="-2"/>
-                        <f:selectItem itemValue="-1" itemLabel="-1"/>
-                        <f:selectItem itemValue="0" itemLabel="0"/>
-                        <f:selectItem itemValue="1" itemLabel="1"/>
-                        <f:selectItem itemValue="2" itemLabel="2"/>
-                        <f:selectItem itemValue="3" itemLabel="3"/>
-                        <f:selectItem itemValue="4" itemLabel="4"/>
-                        <f:convertNumber integerOnly="true"/>
-                        <f:validator validatorId="xValidator"/>
-                    </h:selectOneMenu>
-                    <h:message for="xValue" styleClass="error-message" id="xValueMessage"/>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel for="yValue" value="Y:"/>
-                    <h:inputText id="yValue" value="#{areaCheckBean.y}"
-                                required="true" requiredMessage="Y обязателен для ввода"
-                                converter="jakarta.faces.Double">
-                        <f:validateDoubleRange minimum="-5.0" maximum="5.0"/>
-                    </h:inputText>
-                    <p class="hint-text">
-                        Диапазон: от -5 до 5
-                    </p>
-                    <h:message for="yValue" styleClass="error-message" id="yValueMessage"/>
-                </div>
-
-                <div class="form-group">
-                    <h:outputLabel for="rValue" value="R:"/>
-                    <p:spinner id="rValue" value="#{areaCheckBean.r}"
-                              min="0.1" max="3.0" stepFactor="0.1"
-                              required="true" requiredMessage="R обязателен"
-                              decimalPlaces="1"
-                              style="direction: ltr !important;"
-                              styleClass="r-spinner"/>
-                    <p class="hint-text">
-                        Шаг изменения: 0.1
-                    </p>
-                    <h:message for="rValue" styleClass="error-message"/>
-                </div>
-
-                <h:commandButton id="checkButton" value="Проверить" action="#{areaCheckBean.checkPoint()}">
-                    <f:ajax execute="@form" render="mainForm:resultsTable mainForm:yValueMessage mainForm:xValueMessage"
-                            oncomplete="setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100);"/>
+                <h2>История проверок</h2>
+                <h:commandButton id="clearButton" value="Очистить историю" action="#{resultsBean.clearResults}" styleClass="btn-danger">
+                    <f:ajax render="mainForm:resultsTable" onevent="function(data) { if (data.status === 'success') { setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100); } }"/>
                 </h:commandButton>
+                <h:panelGroup id="resultsTable">
+                    <h:dataTable value="#{resultsBean.results}" var="result" styleClass="results-table">
+                        <h:column>
+                            <f:facet name="header">Время выполнения</f:facet>
+                            <h:outputText value="#{result.executionTime}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">X</f:facet>
+                            <h:outputText value="#{result.x}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Y</f:facet>
+                            <h:outputText value="#{result.y}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">R</f:facet>
+                            <h:outputText value="#{result.r}">
+                                <f:convertNumber maxFractionDigits="1"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Попадание</f:facet>
+                            <h:outputText value="#{result.hit ? 'Да' : 'Нет'}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
             </div>
+        </h:form>
 
-            <div class="form-section">
-                <h2>Область</h2>
-                <div class="canvas-container">
-                    <canvas id="area" width="400" height="400"></canvas>
-                </div>
-                <p class="canvas-hint">
-                    Перемещайте курсор по графику для выбора X и Y. Клик для отправки формы.
-                </p>
-            </div>
+        <div style="text-align: center; padding: 20px 0;">
+            <h:link outcome="start" styleClass="link">
+                ← Вернуться на стартовую страницу
+            </h:link>
         </div>
-        
-        <script type="text/javascript" src="#{request.contextPath}/scripts/area.js"></script>
-        
-        <div class="form-section">
-            <h2>История проверок</h2>
-            <h:commandButton id="clearButton" value="Очистить историю" action="#{resultsBean.clearResults}" styleClass="btn-danger">
-                <f:ajax render="mainForm:resultsTable" onevent="function(data) { if (data.status === 'success') { setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100); } }"/>
-            </h:commandButton>
-            <h:panelGroup id="resultsTable">
-            <h:dataTable value="#{resultsBean.results}" var="result" styleClass="results-table">
-            <h:column>
-                <f:facet name="header">Время выполнения</f:facet>
-                <h:outputText value="#{result.executionTime}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">X</f:facet>
-                <h:outputText value="#{result.x}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Y</f:facet>
-                <h:outputText value="#{result.y}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">R</f:facet>
-                <h:outputText value="#{result.r}">
-                    <f:convertNumber maxFractionDigits="1"/>
-                </h:outputText>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Попадание</f:facet>
-                <h:outputText value="#{result.hit ? 'Да' : 'Нет'}"/>
-            </h:column>
-        </h:dataTable>
-        </h:panelGroup>
-        </div>
-    </h:form>
-    
-    <div style="text-align: center; padding: 20px 0;">
-        <h:link outcome="start" styleClass="link">
-            ← Вернуться на стартовую страницу
-        </h:link>
-    </div>
     </main>
 
     <script>
@@ -215,14 +215,14 @@
         var currentY = #{areaCheckBean.y != null ? areaCheckBean.y : 'null'};
     </script>
     <script>
-    <![CDATA[
+        <![CDATA[
         function validateYInput(input) {
             const value = parseFloat(input.value);
             const minY = -3.0;
             const maxY = 3.0;
-            const messageElement = document.getElementById('mainForm:yValueMessage') || 
-                                 document.querySelector('[id$=":yValueMessage"]');
-            
+            const messageElement = document.getElementById('mainForm:yValueMessage') ||
+                document.querySelector('[id$=":yValueMessage"]');
+
             if (input.value.trim() === '') {
                 if (messageElement) {
                     messageElement.textContent = '';
@@ -231,7 +231,7 @@
                 input.style.borderColor = '';
                 return true;
             }
-            
+
             if (isNaN(value)) {
                 if (messageElement) {
                     messageElement.textContent = 'Y должен быть числом';
@@ -240,7 +240,7 @@
                 input.style.borderColor = '#b00020';
                 return false;
             }
-            
+
             var isLessThanMin = value < minY;
             var isGreaterThanMax = value > maxY;
             if (isLessThanMin || isGreaterThanMax) {
@@ -251,7 +251,7 @@
                 input.style.borderColor = '#b00020';
                 return false;
             }
-            
+
             if (messageElement) {
                 messageElement.textContent = '';
                 messageElement.style.display = 'none';
@@ -259,10 +259,27 @@
             input.style.borderColor = '';
             return true;
         }
-        
+
         window.validateYInput = validateYInput;
-    ]]>
+        ]]>
     </script>
-</body>
+    <h:form id="socketForm">
+        <f:websocket channel="resultChannel" scope="application" onmessage="onSocketMessage" connected="true" />
+
+        <p:remoteCommand name="updateTableRC"
+                         action="#{resultsBean.refreshData}"
+                         update=":mainForm:resultsTable"
+                         oncomplete="if(window.drawAll) window.drawAll()" />
+    </h:form>
+
+    <script>
+        function onSocketMessage(message, channel, event) {
+            console.log("CLIENT: Получен WebSocket сигнал:", message);
+            if (message === "update") {
+                updateTableRC();
+            }
+        }
+    </script>
+    </body>
 </f:view>
 </html>

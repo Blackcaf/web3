@@ -56,6 +56,11 @@
         <param-value>true</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>org.example.filters.CharacterEncodingFilter</filter-class>

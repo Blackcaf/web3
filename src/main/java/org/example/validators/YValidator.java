@@ -6,25 +6,25 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
+import org.example.config.Config;
 
 @FacesValidator("yValidator")
 public class YValidator implements Validator<Double> {
-    
-    private static final double MIN_Y = -5.0;
-    private static final double MAX_Y = 5.0;
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component, Double value) throws ValidatorException {
         if (value == null) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Validation Error", "Y value cannot be empty"));
         }
-        
-        if (value < MIN_Y || value > MAX_Y) {
+
+        double min = Config.getMinY().doubleValue();
+        double max = Config.getMaxY().doubleValue();
+
+        if (value < min || value > max) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Validation Error", 
-                    String.format("Y value must be between %.1f and %.1f", MIN_Y, MAX_Y)));
+                    "Validation Error",
+                    String.format("Y value must be between %.1f and %.1f", min, max)));
         }
     }
 }
-
