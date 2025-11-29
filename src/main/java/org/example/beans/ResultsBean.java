@@ -1,12 +1,15 @@
 package org.example.beans;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
 import jakarta.faces.push.Push;
 import jakarta.faces.push.PushContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.example.dto.ResultDTO;
+import org.example.event.ResultAddedEvent;
 import org.example.service.ResultService;
+import org.example.service.StatisticsService;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,29 +17,44 @@ import java.util.List;
 @Named("resultsBean")
 @ApplicationScoped
 public class ResultsBean implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Inject
     private ResultService resultService;
 
     @Inject
+    private StatisticsService statisticsService;
+
+    @Inject
     @Push(channel = "resultChannel")
     private PushContext pushContext;
 
-    public void init() {
-    }
-
-    public void addResult(ResultDTO resultDTO) {
-        resultService.addResult(resultDTO);
-        pushContext.send("update");
-    }
-
     public List<ResultDTO> getResults() {
-        return resultService.getAllResults();
+        return resultService.findAll();
     }
 
-    public void clearResults() {
-        resultService.clearAllResults();
+    /**
+     * Слушает событие добавления результата через CDI Events
+     */
+    public void onResultAdded(@Observes ResultAddedEvent event) {
+        System.out.println("ResultsBean: Received ResultAddedEvent");
         pushContext.send("update");
+    }
+
+    /**
+     * Очищает все результаты и статистику
+     */
+    public void clearResults() {
+        resultService.clearAll();
+        statisticsService.reset();
+        pushContext.send("update");
+    }
+
+    /**
+     * Метод для AJAX обновления таблицы
+     */
+    public void refreshData() {
+        // Trigger for p:remoteCommand
     }
 }

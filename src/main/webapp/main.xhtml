@@ -11,85 +11,6 @@
         <h:outputStylesheet name="styles/reset.css"/>
         <h:outputStylesheet name="styles/main.css"/>
         <script type="text/javascript" src="#{request.contextPath}/scripts/main.js"></script>
-        <style>
-            body.main-page input[id*="rValue_input"],
-            body.main-page input.ui-spinner-input,
-            body.main-page input[id*="rValue"][id*="input"],
-            body.main-page .ui-spinner input[type="text"] {
-                text-align: left !important;
-                padding: 12px 16px !important;
-                padding-right: 45px !important;
-                width: 180px !important;
-                min-width: 180px !important;
-                max-width: 180px !important;
-                color: #1e293b !important;
-                background-color: #ffffff !important;
-                border: 2px solid #b8daff !important;
-                border-radius: 10px !important;
-                font-size: 14px !important;
-                font-family: 'Segoe UI', system-ui, sans-serif !important;
-                transition: all 0.2s ease !important;
-            }
-
-            body.main-page input[id*="rValue_input"]:focus,
-            body.main-page .ui-spinner input[type="text"]:focus {
-                border-color: #1e90ff !important;
-                box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15) !important;
-            }
-
-            body.main-page .ui-spinner {
-                display: inline-block !important;
-                position: relative !important;
-            }
-
-            body.main-page .ui-spinner .ui-spinner-button {
-                position: absolute !important;
-                right: 2px !important;
-                width: 32px !important;
-                height: calc(50% - 1px) !important;
-                border: none !important;
-                background: linear-gradient(135deg, #1e90ff 0%, #00bfff 100%) !important;
-                color: #fff !important;
-                cursor: pointer !important;
-                transition: all 0.2s ease !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-            }
-
-            body.main-page .ui-spinner .ui-spinner-button:hover {
-                opacity: 0.9 !important;
-            }
-
-            body.main-page .ui-spinner .ui-spinner-up {
-                top: 2px !important;
-                border-radius: 0 8px 0 0 !important;
-            }
-
-            body.main-page .ui-spinner .ui-spinner-down {
-                bottom: 2px !important;
-                border-radius: 0 0 8px 0 !important;
-            }
-
-            body.main-page .ui-spinner .ui-icon {
-                color: #fff !important;
-                font-size: 12px !important;
-            }
-
-            #checkButton {
-                margin-top: 8px;
-            }
-            .btn-danger {
-                background: var(--error) !important;
-                border-color: var(--error) !important;
-                color: #fff !important;
-                margin-bottom: 16px;
-            }
-            .btn-danger:hover {
-                background: #c53030 !important;
-                border-color: #c53030 !important;
-            }
-        </style>
     </h:head>
     <body class="main-page">
     <header>
@@ -129,9 +50,7 @@
                                      converter="jakarta.faces.Double">
                             <f:validateDoubleRange minimum="-5.0" maximum="5.0"/>
                         </h:inputText>
-                        <p class="hint-text">
-                            Диапазон: от -5 до 5
-                        </p>
+                        <p class="hint-text">Диапазон: от -5 до 5</p>
                         <h:message for="yValue" styleClass="error-message" id="yValueMessage"/>
                     </div>
 
@@ -141,11 +60,8 @@
                                    min="0.1" max="3.0" stepFactor="0.1"
                                    required="true" requiredMessage="R обязателен"
                                    decimalPlaces="1"
-                                   style="direction: ltr !important;"
                                    styleClass="r-spinner"/>
-                        <p class="hint-text">
-                            Шаг изменения: 0.1
-                        </p>
+                        <p class="hint-text">Шаг изменения: 0.1</p>
                         <h:message for="rValue" styleClass="error-message"/>
                     </div>
 
@@ -170,9 +86,22 @@
 
             <div class="form-section">
                 <h2>История проверок</h2>
-                <h:commandButton id="clearButton" value="Очистить историю" action="#{resultsBean.clearResults}" styleClass="btn-danger">
-                    <f:ajax render="mainForm:resultsTable" onevent="function(data) { if (data.status === 'success') { setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100); } }"/>
-                </h:commandButton>
+
+                <div class="action-buttons">
+                    <h:commandButton id="clearButton"
+                                     value="Очистить историю"
+                                     action="#{resultsBean.clearResults}"
+                                     styleClass="btn btn-danger">
+                        <f:ajax render="mainForm:resultsTable"
+                                onevent="function(data) { if (data.status === 'success') { setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100); } }"/>
+                    </h:commandButton>
+
+                    <h:link outcome="statistics" styleClass="btn btn-statistics">
+                        <span class="btn-text">Статистика</span>
+                        <span class="btn-arrow">→</span>
+                    </h:link>
+                </div>
+
                 <h:panelGroup id="resultsTable">
                     <h:dataTable value="#{resultsBean.results}" var="result" styleClass="results-table">
                         <h:column>
@@ -214,58 +143,9 @@
         var currentX = #{areaCheckBean.x != null ? areaCheckBean.x : 'null'};
         var currentY = #{areaCheckBean.y != null ? areaCheckBean.y : 'null'};
     </script>
-    <script>
-        <![CDATA[
-        function validateYInput(input) {
-            const value = parseFloat(input.value);
-            const minY = -3.0;
-            const maxY = 3.0;
-            const messageElement = document.getElementById('mainForm:yValueMessage') ||
-                document.querySelector('[id$=":yValueMessage"]');
 
-            if (input.value.trim() === '') {
-                if (messageElement) {
-                    messageElement.textContent = '';
-                    messageElement.style.display = 'none';
-                }
-                input.style.borderColor = '';
-                return true;
-            }
-
-            if (isNaN(value)) {
-                if (messageElement) {
-                    messageElement.textContent = 'Y должен быть числом';
-                    messageElement.style.display = 'block';
-                }
-                input.style.borderColor = '#b00020';
-                return false;
-            }
-
-            var isLessThanMin = value < minY;
-            var isGreaterThanMax = value > maxY;
-            if (isLessThanMin || isGreaterThanMax) {
-                if (messageElement) {
-                    messageElement.textContent = 'Y должен быть в диапазоне от ' + minY + ' до ' + maxY;
-                    messageElement.style.display = 'block';
-                }
-                input.style.borderColor = '#b00020';
-                return false;
-            }
-
-            if (messageElement) {
-                messageElement.textContent = '';
-                messageElement.style.display = 'none';
-            }
-            input.style.borderColor = '';
-            return true;
-        }
-
-        window.validateYInput = validateYInput;
-        ]]>
-    </script>
     <h:form id="socketForm">
         <f:websocket channel="resultChannel" scope="application" onmessage="onSocketMessage" connected="true" />
-
         <p:remoteCommand name="updateTableRC"
                          action="#{resultsBean.refreshData}"
                          update=":mainForm:resultsTable"
