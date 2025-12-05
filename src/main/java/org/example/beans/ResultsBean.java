@@ -17,7 +17,6 @@ import java.util.List;
 @Named("resultsBean")
 @ApplicationScoped
 public class ResultsBean implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Inject
@@ -34,27 +33,14 @@ public class ResultsBean implements Serializable {
         return resultService.findAll();
     }
 
-    /**
-     * Слушает событие добавления результата через CDI Events
-     */
     public void onResultAdded(@Observes ResultAddedEvent event) {
         System.out.println("ResultsBean: Received ResultAddedEvent");
         pushContext.send("update");
     }
 
-    /**
-     * Очищает все результаты и статистику
-     */
     public void clearResults() {
         resultService.clearAll();
         statisticsService.reset();
         pushContext.send("update");
-    }
-
-    /**
-     * Метод для AJAX обновления таблицы
-     */
-    public void refreshData() {
-        // Trigger for p:remoteCommand
     }
 }

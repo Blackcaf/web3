@@ -5,7 +5,6 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.example.entities.ResultEntity;
-import org.example.kafka.ResultKafkaConsumer;
 import org.example.repository.ResultRepository;
 import org.example.service.StatisticsService;
 
@@ -13,9 +12,6 @@ import java.util.List;
 
 @WebListener
 public class AppStartupListener implements ServletContextListener {
-
-    @Inject
-    private ResultKafkaConsumer kafkaConsumer;
 
     @Inject
     private ResultRepository resultRepository;
@@ -26,9 +22,6 @@ public class AppStartupListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("=== Application Started ===");
-        System.out.println("KafkaConsumer initialized: " + (kafkaConsumer != null));
-
-        // Восстанавливаем статистику из БД
         recalculateStatisticsFromDatabase();
     }
 
@@ -37,24 +30,18 @@ public class AppStartupListener implements ServletContextListener {
         System.out.println("=== Application Stopping ===");
     }
 
-    /**
-     * Пересчитывает статистику из всех записей в БД
-     */
     private void recalculateStatisticsFromDatabase() {
         try {
-            System.out.println("=== Recalculating statistics from database ===");
-
             List<ResultEntity> allResults = resultRepository.findAll();
 
             if (allResults != null && !allResults.isEmpty()) {
                 statisticsService.recalculateFromDatabase(allResults);
-                System.out.println("=== Statistics restored from " + allResults.size() + " records ===");
+                System.out.println("Statistics restored from " + allResults.size() + " records");
             } else {
-                System.out.println("=== No records in database, statistics start from zero ===");
+                System.out.println("No records in database, statistics start from zero");
             }
         } catch (Exception e) {
-            System.err.println("=== Failed to recalculate statistics: " + e.getMessage() + " ===");
-            e.printStackTrace();
+            System.err.println("Failed to recalculate statistics: " + e.getMessage());
         }
     }
 }

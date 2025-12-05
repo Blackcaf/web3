@@ -6,20 +6,18 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.example.config.Config;
 
 import java.util.Properties;
 
 @ApplicationScoped
 public class KafkaProducerConfig {
-
-    private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-
     private KafkaProducer<String, String> producer;
 
     @PostConstruct
     public void init() {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, Config.getKafkaBootstrapServers());
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.ACKS_CONFIG, "all");

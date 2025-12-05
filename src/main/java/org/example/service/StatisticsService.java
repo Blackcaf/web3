@@ -25,54 +25,17 @@ public class StatisticsService {
     private final DoubleAdder sumR = new DoubleAdder();
     private final AtomicLong totalExecutionTimeNs = new AtomicLong(0);
 
-    /**
-     * Обрабатывает один результат (вызывается из Kafka Consumer)
-     */
     public void processResult(ResultEntity entity) {
-        if (entity == null) {
-            return;
-        }
-
-        totalRequests.incrementAndGet();
-
-        if (Boolean.TRUE.equals(entity.getHit())) {
-            hitCount.incrementAndGet();
-        } else {
-            missCount.incrementAndGet();
-        }
-
-        if (entity.getX() != null) {
-            sumX.add(entity.getX());
-            xFrequency.computeIfAbsent(entity.getX(), k -> new AtomicLong(0)).incrementAndGet();
-        }
-
-        if (entity.getY() != null) {
-            sumY.add(entity.getY());
-        }
-
-        if (entity.getR() != null) {
-            sumR.add(entity.getR());
-            rFrequency.computeIfAbsent(entity.getR(), k -> new AtomicLong(0)).incrementAndGet();
-        }
-
-        addExecutionTime(entity.getExecutionTime());
-
-        System.out.println("StatisticsService: Processed - Total=" + totalRequests.get() +
-                ", Hits=" + hitCount.get() + ", Misses=" + missCount.get());
+        processResultInternal(entity, true);
     }
 
-    /**
-     * Пересчитывает статистику из списка результатов (при старте приложения)
-     */
     public synchronized void recalculateFromDatabase(List<ResultEntity> results) {
         System.out.println("=== StatisticsService: Recalculating from database ===");
 
-        // Сбрасываем текущие значения
         reset();
 
-        // Пересчитываем все результаты
         for (ResultEntity entity : results) {
-            processResultSilently(entity);
+            processResultInternal(entity, false);
         }
 
         System.out.println("StatisticsService: Recalculated from " + results.size() + " records");
@@ -81,10 +44,7 @@ public class StatisticsService {
                 ", Misses=" + missCount.get());
     }
 
-    /**
-     * Обрабатывает результат без логирования (для массовой загрузки)
-     */
-    private void processResultSilently(ResultEntity entity) {
+    private void processResultInternal(ResultEntity entity, boolean logOutput) {
         if (entity == null) {
             return;
         }
@@ -112,11 +72,13 @@ public class StatisticsService {
         }
 
         addExecutionTime(entity.getExecutionTime());
+
+        if (logOutput) {
+            System.out.println("StatisticsService: Processed - Total=" + totalRequests.get() +
+                    ", Hits=" + hitCount.get() + ", Misses=" + missCount.get());
+        }
     }
 
-    /**
-     * Возвращает текущую статистику
-     */
     public StatisticsDTO getStatistics() {
         StatisticsDTO stats = new StatisticsDTO();
 
@@ -143,9 +105,6 @@ public class StatisticsService {
         return stats;
     }
 
-    /**
-     * Сбрасывает всю статистику
-     */
     public synchronized void reset() {
         totalRequests.set(0);
         hitCount.set(0);
@@ -158,8 +117,6 @@ public class StatisticsService {
         totalExecutionTimeNs.set(0);
         System.out.println("StatisticsService: Reset completed");
     }
-
-    // === Private helper methods ===
 
     private void addExecutionTime(String execTime) {
         if (execTime == null || execTime.isEmpty()) {

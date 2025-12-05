@@ -1,7 +1,6 @@
 package org.example.event;
 
 public class ResultAddedEvent {
-
     private final Long resultId;
 
     public ResultAddedEvent() {this.resultId = null;}

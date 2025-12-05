@@ -70,41 +70,66 @@
             }
 
             .btn {
-                padding: 10px 20px;
+                padding: 12px 24px;
                 border: none;
-                border-radius: 4px;
+                border-radius: 12px;
                 cursor: pointer;
-                font-size: 14px;
-                transition: background-color 0.3s;
+                font-size: 15px;
+                font-weight: 600;
                 text-decoration: none;
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                height: 48px;
+                min-height: 48px;
+                color: white;
+                transition: all 0.3s ease;
+                box-sizing: border-box;
             }
 
             .btn-primary {
-                background-color: #2196F3;
-                color: white;
+                background: linear-gradient(135deg, #1e90ff 0%, #00bfff 100%);
+                box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
             }
 
             .btn-primary:hover {
-                background-color: #1976D2;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(30, 144, 255, 0.5);
+                background: linear-gradient(135deg, #1873cc 0%, #00a8e0 100%);
+            }
+
+            .btn-primary:active {
+                transform: translateY(0);
             }
 
             .btn-danger {
-                background-color: #1976d2;
-                color: white;
+                background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+                box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
             }
 
             .btn-danger:hover {
-                background-color: #1976d2;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+                background: linear-gradient(135deg, #d93232 0%, #c41e1e 100%);
+            }
+
+            .btn-danger:active {
+                transform: translateY(0);
             }
 
             .btn-secondary {
-                background-color: #1976d2;
-                color: white;
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
             }
 
             .btn-secondary:hover {
-                background-color: #1976d2;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+                background: linear-gradient(135deg, #7a4de0 0%, #6b2fd6 100%);
+            }
+
+            .btn-secondary:active {
+                transform: translateY(0);
             }
 
             .kafka-status {

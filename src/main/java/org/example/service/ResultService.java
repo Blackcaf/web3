@@ -20,7 +20,7 @@ public class ResultService {
     private ResultRepository repository;
 
     @Inject
-    private ResultEventPublisher eventPublisher;  // Интерфейс вместо конкретного класса
+    private ResultEventPublisher eventPublisher;
 
     public ResultDTO checkAndSave(Integer x, Double y, Double r) {
         long startTime = System.nanoTime();

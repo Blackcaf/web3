@@ -18,8 +18,8 @@ public class YValidator implements Validator<Double> {
                     "Validation Error", "Y value cannot be empty"));
         }
 
-        double min = Config.getMinY().doubleValue();
-        double max = Config.getMaxY().doubleValue();
+        double min = Config.getMinY();
+        double max = Config.getMaxY();
 
         if (value < min || value > max) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,

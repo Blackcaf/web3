@@ -6,14 +6,12 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.example.config.Config;
 import org.example.entities.ResultEntity;
 import org.example.service.ResultEventPublisher;
 
 @ApplicationScoped
 public class ResultKafkaProducer implements ResultEventPublisher {
-
-    private static final String TOPIC = "results-topic";
-
     private final ObjectMapper objectMapper;
 
     @Inject
@@ -31,7 +29,7 @@ public class ResultKafkaProducer implements ResultEventPublisher {
             String json = objectMapper.writeValueAsString(entity);
             String key = entity.getId() != null ? entity.getId().toString() : "unknown";
 
-            ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, key, json);
+            ProducerRecord<String, String> record = new ProducerRecord<>(Config.getKafkaTopic(), key, json);
 
             producerConfig.getProducer().send(record, (metadata, exception) -> {
                 if (exception != null) {

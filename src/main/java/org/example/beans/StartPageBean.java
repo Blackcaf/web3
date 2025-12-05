@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 @Named("startPageBean")
 @RequestScoped
 public class StartPageBean implements Serializable {
-
     private static final long serialVersionUID = 1L;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 

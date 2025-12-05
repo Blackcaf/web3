@@ -14,6 +14,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.example.config.Config;
 import org.example.entities.ResultEntity;
 import org.example.service.StatisticsService;
 
@@ -27,10 +28,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @ApplicationScoped
 public class ResultKafkaConsumer {
-
-    private static final String TOPIC = "results-topic";
-    private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-
     private final ObjectMapper objectMapper;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private final AtomicBoolean initialized = new AtomicBoolean(false);
@@ -63,15 +60,15 @@ public class ResultKafkaConsumer {
 
         try {
             Properties props = new Properties();
-            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
-            props.put(ConsumerConfig.GROUP_ID_CONFIG, "statistics-group-" + System.currentTimeMillis());
+            props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, Config.getKafkaBootstrapServers());
+            props.put(ConsumerConfig.GROUP_ID_CONFIG, Config.getKafkaConsumerGroup() + "-" + System.currentTimeMillis());
             props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
             props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
             props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
             props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
 
             consumer = new KafkaConsumer<>(props);
-            consumer.subscribe(Collections.singletonList(TOPIC));
+            consumer.subscribe(Collections.singletonList(Config.getKafkaTopic()));
 
             running.set(true);
             executor = Executors.newSingleThreadExecutor(r -> {

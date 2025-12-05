@@ -65,7 +65,7 @@
                         <h:message for="rValue" styleClass="error-message"/>
                     </div>
 
-                    <h:commandButton id="checkButton" value="Проверить" action="#{areaCheckBean.checkPoint()}">
+                    <h:commandButton id="checkButton" value="Проверить" action="#{areaCheckBean.checkPoint()}" styleClass="btn btn-check">
                         <f:ajax execute="@form" render="mainForm:resultsTable mainForm:yValueMessage mainForm:xValueMessage"
                                 oncomplete="setTimeout(function() { if (typeof drawAll === 'function') drawAll(); }, 100);"/>
                     </h:commandButton>

@@ -18,8 +18,8 @@ public class RValidator implements Validator<Double> {
                     "Validation Error", "R value cannot be empty"));
         }
 
-        double min = Config.getMinR().doubleValue();
-        double max = Config.getMaxR().doubleValue();
+        double min = Config.getMinR();
+        double max = Config.getMaxR();
 
         if (value < min || value > max) {
             throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,

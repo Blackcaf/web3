@@ -269,39 +269,60 @@ select:focus {
 }
 
 /* ============================================
-   Buttons
+   Buttons - Unified Style
    ============================================ */
-button[type="submit"],
-.ui-button,
-input[type="submit"] {
-    padding: 14px 32px;
-    border: none;
-    background: var(--bg-gradient);
-    color: #fff;
+
+/* Базовые стили для ВСЕХ кнопок */
+.btn,
+#checkButton,
+#mainForm\:checkButton {
+    /* Фиксированные размеры */
+    padding: 12px 24px !important;
+    min-height: 48px;
+    height: 48px;
+
+    /* Внешний вид */
+    border: none !important;
     border-radius: 12px;
-    cursor: pointer;
-    font-family: inherit;
     font-size: 15px;
     font-weight: 600;
+    color: white !important;
+
+    /* Выравнивание */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    /* Остальное */
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
-    position: relative;
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
-button[type="submit"]:hover,
-.ui-button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-}
-
-button[type="submit"]:active,
-.ui-button:active {
-    transform: translateY(0);
-}
-
-#checkButton {
+/* Кнопка "Проверить" */
+.btn-check,
+#checkButton,
+#mainForm\:checkButton {
+    background: linear-gradient(135deg, #1e90ff 0%, #00bfff 100%) !important;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.4);
     margin-top: 8px;
+}
+
+.btn-check:hover,
+#checkButton:hover,
+#mainForm\:checkButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 144, 255, 0.5);
+    background: linear-gradient(135deg, #1873cc 0%, #00a8e0 100%) !important;
+}
+
+.btn-check:active,
+#checkButton:active,
+#mainForm\:checkButton:active {
+    transform: translateY(0);
 }
 
 /* ============================================
@@ -315,137 +336,46 @@ button[type="submit"]:active,
     align-items: center;
 }
 
-/* Base button styles */
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    position: relative;
-    overflow: hidden;
-}
 
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
-    pointer-events: none;
-}
-
-.btn:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-/* Danger button (Clear) */
+/* Кнопка "Очистить историю" */
 .btn-danger {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
     box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
 }
 
 .btn-danger:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
 }
 
 .btn-danger:active {
     transform: translateY(0);
 }
 
-/* Statistics button */
+/* Кнопка "Статистика" */
 .btn-statistics {
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-    color: white;
     box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-    padding: 12px 24px;
-    gap: 10px;
 }
 
 .btn-statistics:hover {
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
 }
 
 .btn-statistics:active {
-    transform: translateY(0) scale(1);
-}
-
-.btn-statistics .btn-icon {
-    font-size: 20px;
-    animation: pulse 2s ease-in-out infinite;
-    position: relative;
-    z-index: 1;
-}
-
-.btn-statistics .btn-text {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    position: relative;
-    z-index: 1;
+    transform: translateY(0);
 }
 
 .btn-statistics .btn-arrow {
     font-size: 18px;
     transition: transform 0.3s ease;
-    position: relative;
-    z-index: 1;
 }
 
 .btn-statistics:hover .btn-arrow {
     transform: translateX(4px);
 }
 
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.15);
-    }
-}
-
-/* Shine effect */
-.btn-statistics::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-            45deg,
-            transparent,
-            rgba(255, 255, 255, 0.15),
-            transparent
-    );
-    transform: rotate(45deg);
-    animation: shine 3s infinite;
-    pointer-events: none;
-}
-
-@keyframes shine {
-    0% {
-        left: -200%;
-    }
-    50%, 100% {
-        left: 200%;
-    }
-}
 
 /* ============================================
    Canvas

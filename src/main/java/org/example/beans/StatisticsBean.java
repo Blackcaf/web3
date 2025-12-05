@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Named("statisticsBean")
 @ApplicationScoped
 public class StatisticsBean implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Inject
